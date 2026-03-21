@@ -1,0 +1,184 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #0a0a0a;
+    color: white;
+}
+
+/* HEADER */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    background: #111;
+}
+
+header h1 {
+    color: gold;
+}
+
+nav a {
+    margin-left: 25px;
+    color: white;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: gold;
+}
+
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 140px 20px 100px;
+}
+
+.hero h2 {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    color: #bbb;
+    margin-bottom: 30px;
+}
+
+/* BUTTON */
+.btn {
+    padding: 12px 28px;
+    background: gold;
+    color: black;
+    font-weight: bold;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+/* FEATURES */
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 80px 60px;
+    flex-wrap: wrap;
+}
+
+/* SERVICES */
+.services-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 60px;
+    flex-wrap: wrap;
+}
+
+.title {
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* CARD */
+.card {
+    background: #111;
+    padding: 30px;
+    border-radius: 10px;
+    width: 280px;
+    border: 1px solid #222;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: gold;
+}
+
+.card p {
+    color: #aaa;
+}
+
+/* ABOUT PAGE */
+.page {
+    text-align: center;
+    padding: 80px 40px;
+}
+
+.page p {
+    margin-top: 20px;
+    color: #bbb;
+}
+
+/* CONTACT BUTTON */
+.contact-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: gold;
+    color: black;
+    padding: 12px 18px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #111;
+    color: #888;
+}
+/* RESPONSIVE DESIGN */
+
+/* Tablets */
+@media (max-width: 1024px) {
+    header {
+        padding: 20px 30px;
+    }
+
+    .hero h2 {
+        font-size: 32px;
+    }
+}
+
+/* Mobile Devices */
+@media (max-width: 768px) {
+
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav {
+        margin-top: 10px;
+    }
+
+    .hero {
+        padding: 100px 20px 60px;
+    }
+
+    .hero h2 {
+        font-size: 26px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    .features,
+    .services-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 90%;
+    }
+
+    .page {
+        padding: 50px 20px;
+    }
+}
