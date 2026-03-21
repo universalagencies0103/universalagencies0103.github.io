@@ -244,3 +244,75 @@ footer {
 .highlight {
     border: 2px solid gold;
 }
+/* MOBILE RESPONSIVE FIX */
+@media (max-width: 768px) {
+
+    /* HEADER */
+    header {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+    }
+
+    nav {
+        margin-top: 10px;
+    }
+
+    nav a {
+        display: inline-block;
+        margin: 8px;
+    }
+
+    /* HERO */
+    .hero {
+        padding: 80px 15px 50px;
+    }
+
+    .hero h2 {
+        font-size: 24px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    /* FEATURES & SERVICES */
+    .features,
+    .services-container,
+    .pricing-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    /* CARDS */
+    .card,
+    .price-card {
+        width: 90%;
+        max-width: 350px;
+    }
+
+    /* TEXT PADDING */
+    .page {
+        padding: 40px 15px;
+    }
+
+    /* PRICING TITLE */
+    .title {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    /* BUTTON */
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    /* CONTACT BUTTON */
+    .contact-btn {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+}
