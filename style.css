@@ -135,9 +135,6 @@ footer {
 
 /* Tablets */
 @media (max-width: 1024px) {
-    .trial-card {
-    width: 90%;
-}
     header {
         padding: 20px 30px;
     }
@@ -183,6 +180,9 @@ footer {
 
     .page {
         padding: 50px 20px;
+    }
+     .trial-card {
+        width: 90%;
     }
 }
 /* PRICING SECTION */
