@@ -249,6 +249,11 @@ footer {
 }
 /* MOBILE RESPONSIVE FIX */
 @media (max-width: 768px) {
+    @media (max-width: 768px) {
+    .trial-card {
+        width: 90%;
+    }
+}
 
     /* HEADER */
     header {
@@ -319,57 +324,8 @@ footer {
         font-size: 14px;
     }
 }
-/* TRIAL SECTION */
-.trial {
-    padding: 80px 20px;
-    text-align: center;
-}
+/* ===== FINAL CLEAN TRIAL SECTION ===== */
 
-/* CENTER CONTAINER */
-.trial-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* CARD */
-.trial-card {
-    background: #111;
-    padding: 40px;
-    border-radius: 12px;
-    width: 320px;
-    border: 2px solid gold;
-    text-align: center;
-    transition: 0.3s;
-}
-
-.trial-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-}
-
-.trial-card h3 {
-    margin-bottom: 20px;
-    color: gold;
-}
-
-/* LIST */
-.trial-card ul {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 25px;
-}
-
-.trial-card ul li {
-    margin: 10px 0;
-    color: #ddd;
-}
-
-/* BUTTON CENTER FIX */
-.trial-card .btn {
-    display: inline-block;
-}
-/* FORCE CENTER FIX */
 .trial {
     padding: 80px 20px;
     text-align: center;
@@ -382,7 +338,7 @@ footer {
     width: 100%;
 }
 
-/* STRONG CENTER CARD */
+/* SINGLE CLEAN CARD */
 .trial-card {
     background: #111;
     padding: 40px;
@@ -390,17 +346,21 @@ footer {
     width: 320px;
     border: 2px solid gold;
     text-align: center;
-    margin: 0 auto; /* IMPORTANT */
+    margin: 0 auto;
 }
 
-/* FIX LIST */
+/* LIST CENTER */
 .trial-card ul {
     list-style: none;
     padding: 0;
     margin: 20px 0;
 }
 
-/* FIX BUTTON ALIGN */
+.trial-card ul li {
+    text-align: center;
+}
+
+/* BUTTON */
 .trial-card .btn {
     display: inline-block;
 }
