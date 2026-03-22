@@ -135,6 +135,9 @@ footer {
 
 /* Tablets */
 @media (max-width: 1024px) {
+    .trial-card {
+    width: 90%;
+}
     header {
         padding: 20px 30px;
     }
@@ -322,14 +325,21 @@ footer {
     text-align: center;
 }
 
-/* TRIAL CARD */
+/* CENTER CONTAINER */
+.trial-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* CARD */
 .trial-card {
     background: #111;
     padding: 40px;
     border-radius: 12px;
     width: 320px;
-    margin: 30px auto;
     border: 2px solid gold;
+    text-align: center;
     transition: 0.3s;
 }
 
@@ -343,13 +353,19 @@ footer {
     color: gold;
 }
 
+/* LIST */
 .trial-card ul {
     list-style: none;
+    padding: 0;
     margin-bottom: 25px;
 }
 
 .trial-card ul li {
     margin: 10px 0;
     color: #ddd;
-    font-size: 15px;
+}
+
+/* BUTTON CENTER FIX */
+.trial-card .btn {
+    display: inline-block;
 }
