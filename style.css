@@ -369,3 +369,38 @@ footer {
 .trial-card .btn {
     display: inline-block;
 }
+/* FORCE CENTER FIX */
+.trial {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.trial-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* STRONG CENTER CARD */
+.trial-card {
+    background: #111;
+    padding: 40px;
+    border-radius: 12px;
+    width: 320px;
+    border: 2px solid gold;
+    text-align: center;
+    margin: 0 auto; /* IMPORTANT */
+}
+
+/* FIX LIST */
+.trial-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+/* FIX BUTTON ALIGN */
+.trial-card .btn {
+    display: inline-block;
+}
