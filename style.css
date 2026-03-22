@@ -316,3 +316,40 @@ footer {
         font-size: 14px;
     }
 }
+/* TRIAL SECTION */
+.trial {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+/* TRIAL CARD */
+.trial-card {
+    background: #111;
+    padding: 40px;
+    border-radius: 12px;
+    width: 320px;
+    margin: 30px auto;
+    border: 2px solid gold;
+    transition: 0.3s;
+}
+
+.trial-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.trial-card h3 {
+    margin-bottom: 20px;
+    color: gold;
+}
+
+.trial-card ul {
+    list-style: none;
+    margin-bottom: 25px;
+}
+
+.trial-card ul li {
+    margin: 10px 0;
+    color: #ddd;
+    font-size: 15px;
+}
