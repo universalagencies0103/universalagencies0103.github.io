@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Universal Agencies — Brand Marketing</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --beige:#E8DDD4;--black:#111111;--white:#F8F7F4;--teal:#0F766E;
+  --sage:#A7B8A4;--gray:#6B7280;--teal-lt:#CFE5DF;--border:rgba(15,118,110,0.18);
+  --serif:'Cormorant Garamond',Georgia,serif;--sans:'Manrope',system-ui,sans-serif;
+  --grad:linear-gradient(135deg,#E8DDD4,#CFE5DF,#0F766E);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--sans);background:var(--white);color:var(--black);overflow-x:hidden;cursor:none}
+#cursor{position:fixed;width:10px;height:10px;border-radius:50%;background:var(--teal);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s}
+#cursor-ring{position:fixed;width:36px;height:36px;border-radius:50%;border:1px solid rgba(15,118,110,0.45);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .25s}
+body:has(a:hover) #cursor,body:has(button:hover) #cursor{width:16px;height:16px}
+body:has(a:hover) #cursor-ring,body:has(button:hover) #cursor-ring{width:52px;height:52px;opacity:.6}
+body::before{content:'';position:fixed;inset:0;z-index:1000;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");opacity:.55}
+/* PHONE TOAST */
+.phone-toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(120px);background:var(--black);color:var(--white);padding:1rem 1.8rem;border-radius:10px;border:1px solid var(--teal);z-index:9000;display:flex;align-items:center;gap:1rem;font-size:.9rem;transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .3s;opacity:0;pointer-events:none;white-space:nowrap}
+.phone-toast.show{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:all}
+.phone-num{font-family:var(--serif);font-size:1.2rem;color:var(--teal);letter-spacing:1px}
+.copy-btn{background:var(--teal);border:none;color:var(--white);padding:.35rem .8rem;border-radius:5px;font-size:.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:var(--sans);transition:background .2s}
+.copy-btn:hover{background:#0a5e57}
+.close-toast{background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;font-size:1.1rem;line-height:1}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.6rem 4rem;display:flex;align-items:center;justify-content:space-between;transition:background .4s,padding .3s}
+nav.scrolled{background:rgba(248,247,244,.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(232,221,212,.7);padding:1.1rem 4rem}
+.nav-logo{font-family:var(--serif);font-size:1.35rem;font-weight:500;color:var(--black);text-decoration:none;cursor:pointer}
+.nav-logo span{color:var(--teal)}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-size:.8rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);text-decoration:none;transition:color .2s;cursor:pointer}
+.nav-links a:hover{color:var(--teal)}
+.nav-cta{font-family:var(--sans);font-size:.8rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:.65rem 1.6rem;border-radius:4px;background:var(--black);color:var(--white);border:1px solid var(--teal);cursor:pointer;transition:background .3s,transform .25s;min-height:44px}
+.nav-cta:hover{background:var(--teal);transform:translateY(-2px)}
+/* PAGES */
+.page{display:none}
+.page.active{display:block}
+/* HERO */
+#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:8rem 4rem 6rem;background:var(--white);position:relative;overflow:hidden;gap:4rem}
+.hero-bg-orb{position:absolute;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(207,229,223,.55) 0%,transparent 70%);top:-80px;right:-120px;pointer-events:none;animation:float 8s ease-in-out infinite}
+.hero-bg-orb2{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(232,221,212,.7) 0%,transparent 70%);bottom:60px;left:-60px;pointer-events:none;animation:float 10s ease-in-out infinite reverse}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-22px)}}
+.hero-left{position:relative;z-index:2}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.72rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal);margin-bottom:2rem}
+.hero-eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--teal)}
+.hero-headline{font-family:var(--serif);font-size:clamp(3.2rem,5.5vw,5.4rem);font-weight:400;line-height:1.04;letter-spacing:-1px;color:var(--black);margin-bottom:1.6rem}
+.hero-headline em{font-style:italic;color:var(--teal)}
+.hero-sub{font-size:.95rem;font-weight:300;line-height:1.85;color:var(--gray);max-width:400px;margin-bottom:3rem}
+.btn-row{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap}
+.btn-primary{font-family:var(--sans);font-size:.82rem;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;padding:.9rem 2.2rem;border-radius:4px;background:var(--black);color:var(--white);border:1px solid var(--teal);cursor:pointer;transition:background .3s,transform .25s;min-height:44px}
+.btn-primary:hover{background:var(--teal);transform:translateY(-3px)}
+.btn-primary:active{transform:scale(.97)}
+.btn-insta{font-family:var(--sans);font-size:.82rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:.9rem 1.6rem;border-radius:4px;background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);color:var(--white);border:none;cursor:pointer;transition:opacity .3s,transform .25s;min-height:44px;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem}
+.btn-insta:hover{opacity:.86;transform:translateY(-2px)}
+.btn-ghost{font-size:.82rem;font-weight:500;color:var(--black);text-decoration:none;display:flex;align-items:center;gap:.5rem;transition:gap .25s,color .25s;cursor:pointer;min-height:44px}
+.btn-ghost:hover{gap:.9rem;color:var(--teal)}
+.btn-ghost svg{width:16px;height:16px}
+/* HERO ART */
+.hero-right{position:relative;z-index:2}
+.hero-art-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:220px 160px;gap:12px}
+.art-card{border-radius:10px;overflow:hidden;position:relative;transition:transform .4s ease}
+.art-card:hover{transform:scale(1.02)}
+.art-card-1{grid-column:1;grid-row:1;background:linear-gradient(145deg,#111 0%,#1e2a28 100%);display:flex;align-items:flex-end;padding:1.4rem}
+.art-card-2{grid-column:2;grid-row:1/3;background:linear-gradient(145deg,#E8DDD4 0%,#CFE5DF 100%);display:flex;flex-direction:column;justify-content:space-between;padding:1.6rem;position:relative}
+.art-card-3{grid-column:1;grid-row:2;background:var(--teal);display:flex;align-items:center;justify-content:center}
+.art-label{font-family:var(--serif);font-size:1.3rem;font-weight:400;color:var(--white);line-height:1.3}
+.art-tag{font-size:.68rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:.3rem .8rem;border-radius:20px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);display:inline-block;margin-bottom:.8rem}
+.art-teal-text{font-family:var(--serif);font-size:1.6rem;font-weight:300;color:var(--white);font-style:italic;text-align:center}
+.art-badge{position:absolute;bottom:-10px;right:-10px;width:72px;height:72px;border-radius:50%;background:var(--black);border:2px solid var(--teal);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.art-badge span:first-child{font-family:var(--serif);font-size:1.3rem;color:var(--white);font-weight:300;line-height:1}
+.art-badge span:last-child{font-size:.55rem;letter-spacing:1px;text-transform:uppercase;color:var(--sage)}
+.art-line{width:100%;height:1px;background:rgba(17,17,17,.12)}
+.art-dark-tag{font-size:.68rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--teal);padding:.3rem .8rem;border:1px solid var(--border);border-radius:20px;display:inline-block}
+/* MARQUEE */
+.marquee-section{padding:1.6rem 0;border-top:1px solid rgba(232,221,212,.6);border-bottom:1px solid rgba(232,221,212,.6);background:var(--beige);overflow:hidden}
+.marquee-track{display:flex;animation:marquee 30s linear infinite;width:max-content;align-items:center}
+.marquee-item{display:flex;align-items:center;gap:2.5rem;padding:0 2.5rem;font-size:.72rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gray);white-space:nowrap;flex-shrink:0}
+.marquee-dot{width:4px;height:4px;border-radius:50%;background:var(--teal);flex-shrink:0}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+/* SERVICES */
+#services{background:var(--black);color:var(--white);padding:8rem 4rem;position:relative;overflow:hidden}
+.services-bg{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(15,118,110,.12) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.section-header{margin-bottom:5rem}
+.section-eyebrow{font-size:.72rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--sage);display:flex;align-items:center;gap:.8rem;margin-bottom:1.4rem}
+.section-eyebrow::after{content:'';flex:1;height:1px;background:rgba(167,184,164,.25);max-width:80px}
+.section-title{font-family:var(--serif);font-size:clamp(2.4rem,4.5vw,4rem);font-weight:400;line-height:1.1;letter-spacing:-.5px;color:var(--white)}
+.section-title em{font-style:italic;color:var(--teal)}
+.section-title-dark{color:var(--black)}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;border:1.5px solid rgba(255,255,255,.06);border-radius:12px;overflow:hidden}
+.svc-card{padding:3rem 2.5rem;border-right:1.5px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);transition:background .35s;position:relative;overflow:hidden}
+.svc-card:last-child{border-right:none}
+.svc-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .45s ease}
+.svc-card:hover{background:rgba(15,118,110,.06)}
+.svc-card:hover::before{transform:scaleX(1)}
+.svc-num{font-family:var(--serif);font-size:3.5rem;font-weight:300;color:rgba(255,255,255,.08);line-height:1;margin-bottom:1.5rem}
+.svc-icon{width:40px;height:40px;margin-bottom:1.2rem;border:1px solid rgba(15,118,110,.3);border-radius:8px;display:flex;align-items:center;justify-content:center}
+.svc-icon svg{width:18px;height:18px;stroke:var(--teal);fill:none;stroke-width:1.5}
+.svc-title{font-family:var(--serif);font-size:1.5rem;font-weight:400;color:var(--white);margin-bottom:.8rem;line-height:1.3}
+.svc-desc{font-size:.85rem;font-weight:300;line-height:1.8;color:rgba(255,255,255,.5)}
+.svc-link{display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--teal);margin-top:1.5rem;text-decoration:none;transition:gap .25s;cursor:pointer;min-height:44px;background:none;border:none;font-family:var(--sans)}
+.svc-link:hover{gap:.7rem}
+/* PROCESS */
+#process{padding:8rem 4rem;background:var(--beige)}
+.process-grid{display:grid;grid-template-columns:1fr 2fr;gap:6rem;align-items:start}
+.process-steps{display:flex;flex-direction:column}
+.process-step{display:flex;gap:1.8rem;padding:2.2rem 0;border-bottom:1px solid rgba(17,17,17,.1);transition:padding-left .3s}
+.process-step:first-child{padding-top:0}
+.process-step:last-child{border-bottom:none}
+.process-step:hover{padding-left:.5rem}
+.step-num{font-family:var(--serif);font-size:2rem;font-weight:300;color:rgba(17,17,17,.15);line-height:1;flex-shrink:0;width:2.5rem;transition:color .3s}
+.process-step:hover .step-num{color:var(--teal)}
+.step-content h4{font-family:var(--serif);font-size:1.3rem;font-weight:500;color:var(--black);margin-bottom:.5rem}
+.step-content p{font-size:.85rem;font-weight:300;line-height:1.8;color:var(--gray)}
+.process-right{position:sticky;top:8rem}
+.process-visual{border-radius:16px;background:linear-gradient(145deg,#111 0%,#1e3a37 100%);padding:3rem;min-height:420px;display:flex;flex-direction:column;justify-content:space-between;border:1px solid rgba(15,118,110,.15)}
+.pv-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--sage)}
+.pv-big{font-family:var(--serif);font-size:3.2rem;font-weight:300;color:var(--white);line-height:1.1}
+.pv-big em{color:var(--teal);font-style:italic}
+.pv-row{display:flex;justify-content:space-between;align-items:flex-end}
+.pv-stat-num{font-family:var(--serif);font-size:2.2rem;font-weight:300;color:var(--white)}
+.pv-stat-label{font-size:.72rem;color:rgba(255,255,255,.4);letter-spacing:1px;text-transform:uppercase}
+.pv-divider{width:1px;height:40px;background:rgba(255,255,255,.1)}
+/* CTA */
+#cta{padding:8rem 4rem;position:relative;overflow:hidden;background:var(--beige);text-align:center}
+.cta-orb{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(207,229,223,.6) 0%,transparent 65%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.cta-content{position:relative;z-index:2;max-width:660px;margin:0 auto}
+.cta-eyebrow{font-size:.72rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal);margin-bottom:1.4rem}
+.cta-title{font-family:var(--serif);font-size:clamp(2.4rem,5vw,4.2rem);font-weight:400;line-height:1.1;color:var(--black);margin-bottom:1.2rem}
+.cta-title em{font-style:italic;color:var(--teal)}
+.cta-sub{font-size:.95rem;font-weight:300;color:var(--gray);line-height:1.8;margin-bottom:2.8rem}
+.cta-buttons{display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap}
+.btn-teal{font-family:var(--sans);font-size:.82rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:.9rem 2.2rem;border-radius:4px;background:var(--teal);color:var(--white);border:1px solid var(--teal);cursor:pointer;transition:background .3s,transform .25s;min-height:44px}
+.btn-teal:hover{background:#0a5e57;transform:translateY(-3px)}
+.btn-teal:active{transform:scale(.97)}
+/* FOOTER */
+footer{background:var(--black);padding:5rem 4rem 2.5rem;color:var(--white)}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:3rem;margin-bottom:4rem;padding-bottom:4rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.footer-logo-text{font-family:var(--serif);font-size:1.4rem;font-weight:400;color:var(--white);margin-bottom:1rem}
+.footer-logo-text span{color:var(--teal)}
+.footer-tagline{font-size:.85rem;font-weight:300;color:rgba(255,255,255,.4);line-height:1.7;max-width:260px}
+.footer-col h5{font-size:.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:1.4rem}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.7rem}
+.footer-col a{font-size:.85rem;font-weight:300;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;cursor:pointer}
+.footer-col a:hover{color:var(--teal)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-bottom p{font-size:.78rem;color:rgba(255,255,255,.2);font-weight:300}
+.footer-bottom-links{display:flex;gap:2rem}
+.footer-bottom-links a{font-size:.75rem;color:rgba(255,255,255,.2);text-decoration:none;transition:color .2s}
+.footer-bottom-links a:hover{color:var(--teal)}
+/* EXPLORE PAGES */
+.exp-page{min-height:100vh;background:var(--white)}
+.exp-hero{padding:10rem 4rem 6rem;background:var(--black);position:relative;overflow:hidden}
+.exp-hero-orb{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(15,118,110,.15) 0%,transparent 70%);top:50%;right:-100px;transform:translateY(-50%);pointer-events:none;animation:float 9s ease-in-out infinite}
+.exp-back{display:inline-flex;align-items:center;gap:.5rem;font-size:.75rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--sage);margin-bottom:2.5rem;cursor:pointer;background:none;border:none;font-family:var(--sans);transition:color .2s;padding:0}
+.exp-back:hover{color:var(--teal)}
+.exp-eyebrow{font-size:.72rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal);margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+.exp-eyebrow::before{content:'';width:24px;height:1px;background:var(--teal);display:block}
+.exp-title{font-family:var(--serif);font-size:clamp(2.8rem,6vw,5.2rem);font-weight:400;line-height:1.05;letter-spacing:-1.5px;color:var(--white);margin-bottom:1.6rem}
+.exp-title em{font-style:italic;color:var(--teal)}
+.exp-sub{font-size:1rem;font-weight:300;color:rgba(255,255,255,.55);max-width:520px;line-height:1.8}
+.exp-body{padding:6rem 4rem;max-width:1100px;margin:0 auto}
+.exp-intro{display:grid;grid-template-columns:1fr 1fr;gap:5rem;margin-bottom:5rem;align-items:start}
+.exp-intro-text h2{font-family:var(--serif);font-size:2.2rem;font-weight:400;color:var(--black);margin-bottom:1.2rem;line-height:1.2}
+.exp-intro-text h2 em{font-style:italic;color:var(--teal)}
+.exp-intro-text p{font-size:.9rem;font-weight:300;color:var(--gray);line-height:1.85;margin-bottom:1rem}
+.exp-visual{border-radius:16px;background:linear-gradient(145deg,#111 0%,#1e3a37 100%);padding:2.5rem;min-height:320px;display:flex;flex-direction:column;justify-content:space-between;border:1px solid rgba(15,118,110,.15)}
+.exp-visual-tag{font-size:.68rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--sage);margin-bottom:1rem}
+.exp-visual-big{font-family:var(--serif);font-size:2.6rem;font-weight:300;color:var(--white);line-height:1.15}
+.exp-visual-big em{color:var(--teal);font-style:italic}
+.exp-visual-foot{font-size:.78rem;color:rgba(255,255,255,.35);font-weight:300}
+.exp-features{margin-bottom:5rem}
+.exp-features h3{font-family:var(--serif);font-size:1.8rem;font-weight:400;color:var(--black);margin-bottom:2.5rem}
+.exp-features h3 em{font-style:italic;color:var(--teal)}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.feat-card{padding:2rem;border-radius:12px;border:1px solid rgba(232,221,212,.8);background:var(--white);transition:border-color .3s,transform .3s}
+.feat-card:hover{border-color:var(--teal);transform:translateY(-4px)}
+.feat-icon{width:36px;height:36px;border-radius:8px;background:rgba(15,118,110,.1);display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
+.feat-icon svg{width:16px;height:16px;stroke:var(--teal);fill:none;stroke-width:1.5}
+.feat-card h4{font-family:var(--serif);font-size:1.15rem;font-weight:500;color:var(--black);margin-bottom:.5rem}
+.feat-card p{font-size:.82rem;font-weight:300;color:var(--gray);line-height:1.7}
+.exp-cta-strip{background:var(--black);border-radius:16px;padding:3.5rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.exp-cta-strip h3{font-family:var(--serif);font-size:2rem;font-weight:400;color:var(--white)}
+.exp-cta-strip h3 em{font-style:italic;color:var(--teal)}
+/* FORM */
+.form-page{min-height:100vh;background:var(--white)}
+.form-header{background:var(--black);padding:1.4rem 3rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(15,118,110,.2)}
+.form-header-logo{font-family:var(--serif);font-size:1.3rem;font-weight:400;color:var(--white)}
+.form-header-logo span{color:var(--teal)}
+.form-header-tag{font-size:.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--sage);padding:.3rem .9rem;border:1px solid rgba(167,184,164,.25);border-radius:20px}
+.form-hero-banner{background:linear-gradient(135deg,#111 0%,#1a2e2b 60%,#0f3330 100%);padding:4rem 3rem 3rem;text-align:center;position:relative;overflow:hidden}
+.form-hero-banner::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(15,118,110,.18) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.form-hero-eyebrow{font-size:.72rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--sage);display:inline-flex;align-items:center;gap:.6rem;margin-bottom:1.2rem}
+.form-hero-eyebrow::before,.form-hero-eyebrow::after{content:'';display:block;width:24px;height:1px;background:var(--sage)}
+.form-hero-banner h1{font-family:var(--serif);font-size:clamp(2rem,4vw,3.2rem);font-weight:400;color:var(--white);line-height:1.1;margin-bottom:.8rem;position:relative;z-index:1}
+.form-hero-banner h1 em{font-style:italic;color:var(--teal)}
+.form-hero-banner p{font-size:.9rem;color:rgba(255,255,255,.5);font-weight:300;max-width:480px;margin:0 auto;position:relative;z-index:1}
+.progress-wrap{background:var(--beige);padding:1.4rem 3rem;border-bottom:1px solid rgba(232,221,212,.8)}
+.progress-steps{display:flex;align-items:center;justify-content:center;max-width:600px;margin:0 auto}
+.prog-step{display:flex;flex-direction:column;align-items:center;gap:.35rem;flex:1;position:relative}
+.prog-step::after{content:'';position:absolute;top:14px;left:50%;width:100%;height:1px;background:rgba(17,17,17,.12);z-index:0}
+.prog-step:last-child::after{display:none}
+.prog-dot{width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(17,17,17,.15);background:var(--white);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:rgba(17,17,17,.3);position:relative;z-index:1;transition:all .3s}
+.prog-step.active .prog-dot{background:var(--teal);border-color:var(--teal);color:var(--white)}
+.prog-step.done .prog-dot{background:var(--black);border-color:var(--black);color:var(--white)}
+.prog-label{font-size:.62rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(17,17,17,.35);text-align:center;white-space:nowrap}
+.prog-step.active .prog-label{color:var(--teal)}
+.prog-step.done .prog-label{color:var(--black)}
+.form-container{max-width:720px;margin:0 auto;padding:3rem 2rem 5rem}
+.form-section{display:none;animation:fadeUp .4s ease both}
+.form-section.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.fsec-header{margin-bottom:2.2rem;padding-bottom:1.4rem;border-bottom:1px solid rgba(232,221,212,.8)}
+.fsec-num{font-family:var(--serif);font-size:3.5rem;font-weight:300;color:rgba(17,17,17,.06);line-height:1;margin-bottom:.2rem}
+.fsec-title{font-family:var(--serif);font-size:1.6rem;font-weight:400;color:var(--black);margin-bottom:.4rem}
+.fsec-title em{font-style:italic;color:var(--teal)}
+.fsec-desc{font-size:.82rem;color:var(--gray);font-weight:300;line-height:1.7}
+.field-group{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.4rem}
+.field-group.full{grid-template-columns:1fr}
+.field{display:flex;flex-direction:column;gap:.45rem}
+label{font-size:.75rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--black)}
+label span{color:var(--teal)}
+input[type=text],input[type=email],input[type=tel],textarea{font-family:var(--sans);font-size:.9rem;font-weight:300;color:var(--black);background:var(--white);border:1px solid rgba(17,17,17,.12);border-radius:6px;padding:.85rem 1rem;outline:none;transition:border-color .25s,box-shadow .25s;width:100%}
+input:focus,textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(15,118,110,.08)}
+textarea{resize:vertical;min-height:110px;line-height:1.7}
+.field-hint{font-size:.72rem;color:var(--gray);font-weight:300}
+.err-msg{font-size:.72rem;color:#c0392b;display:none}
+.field.has-error .err-msg{display:block}
+.field.has-error input,.field.has-error textarea{border-color:#c0392b}
+.options-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:.7rem;margin-top:.2rem}
+.option-item{display:flex;align-items:center;gap:.7rem;padding:.75rem 1rem;border-radius:6px;border:1px solid rgba(17,17,17,.1);cursor:pointer;transition:border-color .2s,background .2s;user-select:none}
+.option-item:hover{border-color:var(--teal);background:rgba(15,118,110,.04)}
+.option-item input{display:none}
+.option-check{width:18px;height:18px;border-radius:4px;border:1.5px solid rgba(17,17,17,.2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.option-item.radio .option-check{border-radius:50%}
+.option-item.selected{border-color:var(--teal);background:rgba(15,118,110,.06)}
+.option-item.selected .option-check{background:var(--teal);border-color:var(--teal)}
+.option-item.selected .option-check::after{content:'';display:block;width:6px;height:6px;border-radius:50%;background:var(--white)}
+.option-label{font-size:.85rem;font-weight:400;color:var(--black)}
+.form-nav{display:flex;justify-content:space-between;align-items:center;margin-top:2.5rem;padding-top:2rem;border-top:1px solid rgba(232,221,212,.8)}
+.btn-back{font-size:.78rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--gray);background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:.4rem;transition:color .2s;font-family:var(--sans)}
+.btn-back:hover{color:var(--black)}
+.btn-next{font-family:var(--sans);font-size:.82rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:.9rem 2.4rem;border-radius:4px;background:var(--black);color:var(--white);border:1px solid var(--teal);cursor:pointer;transition:background .3s,transform .25s;min-height:44px;display:flex;align-items:center;gap:.5rem}
+.btn-next:hover{background:var(--teal);transform:translateY(-2px)}
+.btn-next:active{transform:scale(.97)}
+.step-counter{font-size:.75rem;color:var(--gray);font-weight:500}
+#success-screen{display:none;text-align:center;padding:5rem 2rem;animation:fadeUp .5s ease both}
+#success-screen.active{display:block}
+.success-icon{width:72px;height:72px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;margin:0 auto 1.8rem}
+.success-icon svg{width:32px;height:32px;stroke:var(--white);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.success-title{font-family:var(--serif);font-size:2.4rem;font-weight:400;color:var(--black);margin-bottom:.8rem}
+.success-title em{font-style:italic;color:var(--teal)}
+.success-sub{font-size:.9rem;color:var(--gray);font-weight:300;line-height:1.8;max-width:440px;margin:0 auto 2.5rem}
+.success-detail{display:inline-flex;align-items:center;gap:.6rem;font-size:.78rem;font-weight:500;color:var(--teal);padding:.6rem 1.2rem;border:1px solid var(--border);border-radius:20px}
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+/* TOUCH */
+@media(hover:none) and (pointer:coarse){body{cursor:auto}#cursor,#cursor-ring{display:none}}
+/* MOBILE */
+@media(max-width:900px){
+  nav{padding:1.2rem 1.5rem}nav.scrolled{padding:.9rem 1.5rem}.nav-links{display:none}
+  #hero{grid-template-columns:1fr;padding:7rem 1.5rem 4rem;gap:3rem}.hero-right{display:none}
+  #services,#process,#cta{padding:5rem 1.5rem}.services-grid{grid-template-columns:1fr}.process-grid{grid-template-columns:1fr;gap:3rem}
+  .footer-top{grid-template-columns:1fr 1fr}footer{padding:3rem 1.5rem 2rem}
+  .exp-intro{grid-template-columns:1fr;gap:2.5rem}.features-grid{grid-template-columns:1fr}
+  .exp-hero,.exp-body{padding-left:1.5rem;padding-right:1.5rem}
+  .exp-cta-strip{flex-direction:column;text-align:center}
+  .field-group{grid-template-columns:1fr}.options-grid{grid-template-columns:1fr}
+  .form-nav{flex-wrap:wrap;gap:1rem}.btn-next{width:100%;justify-content:center}
+  .form-header{padding:1rem 1.2rem}
+}
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<div class="phone-toast" id="phoneToast">
+  <span>Call us:</span>
+  <span class="phone-num">+91 75584 89440</span>
+  <button class="copy-btn" onclick="copyPhone()">Copy</button>
+  <button class="close-toast" onclick="document.getElementById('phoneToast').classList.remove('show')">x</button>
+</div>
+<nav id="nav">
+  <a class="nav-logo" onclick="showPage('main')">Universal<span>Agencies</span></a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('main');setTimeout(()=>document.getElementById('services').scrollIntoView({behavior:'smooth'}),100)">Services</a></li>
+    <li><a onclick="showPage('main');setTimeout(()=>document.getElementById('process').scrollIntoView({behavior:'smooth'}),100)">Process</a></li>
+  </ul>
+  <button class="nav-cta" onclick="showPage('form')">Start a Project</button>
+</nav>
+
+<!-- MAIN PAGE -->
+<div id="page-main" class="page active">
+<section id="hero">
+  <div class="hero-bg-orb"></div><div class="hero-bg-orb2"></div>
+  <div class="hero-left">
+    <div class="hero-eyebrow reveal">Brand Marketing Studio</div>
+    <h1 class="hero-headline reveal reveal-delay-1">We Shape Brands<br><em>People Remember.</em></h1>
+    <p class="hero-sub reveal reveal-delay-2">Universal Agencies partners with startups, businesses, and modern creators to craft identities that command attention and strategies that build lasting influence.</p>
+    <div class="btn-row reveal reveal-delay-3">
+      <button class="btn-primary" onclick="showPage('form')">Start a Project</button>
+      <a href="https://www.instagram.com/universal_agency_pvt_ltd?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" class="btn-insta">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        See Our Work
+      </a>
+      <a href="#process" class="btn-ghost" onclick="document.getElementById('process').scrollIntoView({behavior:'smooth'})">How we work <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </div>
+  <div class="hero-right reveal reveal-delay-2">
+    <div class="hero-art-grid">
+      <div class="art-card art-card-1"><div><div class="art-tag">Brand Identity</div><div class="art-label">"The mark of a great brand is instant recognition."</div></div></div>
+      <div class="art-card art-card-2"><div><div class="art-dark-tag">Strategy</div><div class="art-line" style="margin:.8rem 0"></div><div style="font-size:.9rem;color:var(--gray);font-family:var(--sans);font-weight:300;line-height:1.6">Positioning that turns brands into movements.</div></div><div><div style="font-family:var(--serif);font-size:2.8rem;font-weight:300;color:var(--black);line-height:1">100+</div><div style="font-size:.68rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gray)">Brands Launched</div></div><div class="art-badge"><span>5 star</span><span>rated</span></div></div>
+      <div class="art-card art-card-3"><div class="art-teal-text">"Growth by design."</div></div>
+    </div>
+  </div>
+</section>
+<div class="marquee-section"><div class="marquee-track"><div class="marquee-item"><span>Brand Strategy</span><div class="marquee-dot"></div></div><div class="marquee-item"><span>Visual Identity</span><div class="marquee-dot"></div></div><div class="marquee-item"><span>Content Marketing</span><div class="marquee-dot"></div></div><div class="marquee-item"><span>Influencer Campaigns</span><div class="marquee-dot"></div></div><div class="marquee-item"><span>Growth Strategy</span><div class="marquee-dot"></div></div><div class="marquee-item"><span>Digital Presence</span><div class="marquee-dot"></div></div><div class="marquee-item"><span>Startup Branding</span><div class="marquee-dot"></div></div><div class="marquee-item"><span>Brand Strategy</span><div class="marquee-dot"></div></div><div class="marquee-item"><span>Visual Identity</span><div class="marquee-dot"></div></div><div class="marquee-item"><span>Content Marketing</span><div class="marquee-dot"></div></div><div class="marquee-item"><span>Influencer Campaigns</span><div class="marquee-dot"></div></div><div class="marquee-item"><span>Growth Strategy</span><div class="marquee-dot"></div></div><div class="marquee-item"><span>Digital Presence</span><div class="marquee-dot"></div></div><div class="marquee-item"><span>Startup Branding</span><div class="marquee-dot"></div></div></div></div>
+<section id="services">
+  <div class="services-bg"></div>
+  <div class="section-header reveal"><div class="section-eyebrow">What We Do</div><h2 class="section-title">Craft. Strategy.<br><em>Execution.</em></h2></div>
+  <div class="services-grid">
+    <div class="svc-card reveal"><div class="svc-num">01</div><div class="svc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></div><h3 class="svc-title">Brand Identity &amp; Strategy</h3><p class="svc-desc">We build brand foundations from naming and positioning to visual systems that communicate authority and distinction at every touchpoint.</p><button class="svc-link" onclick="showPage('brand')">Explore this service</button></div>
+    <div class="svc-card reveal reveal-delay-1"><div class="svc-num">02</div><div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3zM3 9h18M9 21V9"/></svg></div><h3 class="svc-title">Digital Marketing &amp; Growth</h3><p class="svc-desc">Performance-driven campaigns across platforms — SEO, paid media, content marketing, and analytics engineered for compound growth.</p><button class="svc-link" onclick="showPage('digital')">Explore this service</button></div>
+    <div class="svc-card reveal reveal-delay-2"><div class="svc-num">03</div><div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3 class="svc-title">Influencer &amp; Creator Partnerships</h3><p class="svc-desc">We connect brands with the right voices — curating authentic creator collaborations that amplify reach and build credible communities.</p><button class="svc-link" onclick="showPage('influencer')">Explore this service</button></div>
+  </div>
+</section>
+<section id="process">
+  <div class="section-eyebrow reveal" style="color:var(--teal)">How We Work</div>
+  <h2 class="section-title section-title-dark reveal" style="margin-bottom:4rem">Our creative<br><em>process.</em></h2>
+  <div class="process-grid">
+    <div class="process-steps">
+      <div class="process-step reveal"><div class="step-num">01</div><div class="step-content"><h4>Discovery &amp; Research</h4><p>We immerse ourselves in your world — your audience, competitors, and aspirations — to build a strategic foundation grounded in real insight.</p></div></div>
+      <div class="process-step reveal reveal-delay-1"><div class="step-num">02</div><div class="step-content"><h4>Brand Positioning</h4><p>Crafting the narrative, tone, and strategic position that makes you unmistakably distinct in your market.</p></div></div>
+      <div class="process-step reveal reveal-delay-2"><div class="step-num">03</div><div class="step-content"><h4>Creative Execution</h4><p>From visual identity to campaign assets — every detail is designed with intention, precision, and aesthetic clarity.</p></div></div>
+      <div class="process-step reveal reveal-delay-3"><div class="step-num">04</div><div class="step-content"><h4>Launch &amp; Amplify</h4><p>Strategic rollout across channels with performance monitoring, iteration, and ongoing partnership to sustain momentum.</p></div></div>
+    </div>
+    <div class="process-right reveal reveal-delay-1">
+      <div class="process-visual">
+        <div class="pv-eyebrow">The Universal Agencies Method</div>
+        <div class="pv-big">Strategy<br>meets <em>soul.</em></div>
+        <div><div style="height:1px;background:rgba(255,255,255,.08);margin-bottom:1.8rem"></div><div class="pv-row"><div class="pv-stat"><div class="pv-stat-num">100+</div><div class="pv-stat-label">Brands Built</div></div><div class="pv-divider"></div><div class="pv-stat"><div class="pv-stat-num">98%</div><div class="pv-stat-label">Retention Rate</div></div><div class="pv-divider"></div><div class="pv-stat"><div class="pv-stat-num">2yr</div><div class="pv-stat-label">In Market</div></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="cta">
+  <div class="cta-orb"></div>
+  <div class="cta-content">
+    <div class="cta-eyebrow reveal">Ready to Begin?</div>
+    <h2 class="cta-title reveal">Let's build something<br><em>remarkable.</em></h2>
+    <p class="cta-sub reveal">Whether you are a startup finding your voice or an established brand ready to evolve — we would love to hear your vision.</p>
+    <div class="cta-buttons reveal">
+      <button class="btn-primary" onclick="showPage('form')">Start a Project</button>
+      <button class="btn-teal" onclick="showPhone()">Schedule a Call</button>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="footer-top">
+    <div><div class="footer-logo-text">Universal<span>Agencies</span></div><p class="footer-tagline">A brand marketing studio for businesses, startups, and modern creators who believe in the power of distinctive identity.</p></div>
+    <div class="footer-col"><h5>Services</h5><ul><li><a onclick="showPage('brand')">Brand Strategy</a></li><li><a onclick="showPage('digital')">Digital Marketing</a></li><li><a onclick="showPage('influencer')">Influencer Mgmt</a></li><li><a onclick="showPage('digital')">Content Creation</a></li></ul></div>
+    <div class="footer-col"><h5>Company</h5><ul><li><a onclick="showPage('main')">Home</a></li><li><a onclick="showPage('main');setTimeout(()=>document.getElementById('services').scrollIntoView({behavior:'smooth'}),100)">Services</a></li><li><a onclick="showPage('form')">Start a Project</a></li></ul></div>
+    <div class="footer-col"><h5>Connect</h5><ul><li><a href="mailto:universalagencies0103@gmail.com">universalagencies0103@gmail.com</a></li><li><a href="https://www.instagram.com/universal_agency_pvt_ltd?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">Instagram</a></li><li><a onclick="showPhone()">+91 75584 89440</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>2025 Universal Agencies. All rights reserved.</p><div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a></div></div>
+</footer>
+</div>
+
+<!-- EXPLORE: BRAND IDENTITY -->
+<div id="page-brand" class="page exp-page">
+  <div class="exp-hero"><div class="exp-hero-orb"></div><button class="exp-back" onclick="showPage('main')">Back to Home</button><div class="exp-eyebrow">Service 01</div><h1 class="exp-title">Brand Identity<br>&amp; <em>Strategy</em></h1><p class="exp-sub">We craft brand foundations that make businesses unforgettable — from the first impression to lasting loyalty.</p></div>
+  <div class="exp-body">
+    <div class="exp-intro">
+      <div class="exp-intro-text"><h2>Your brand is more than<br>a <em>logo.</em></h2><p>A brand is the sum of every experience someone has with your business — the words you use, the colours people see, the feeling they get. At Universal Agencies, we build brand systems that are cohesive, intentional, and built to last.</p><p>We work with retail shops, startups, and modern businesses to define who they are, what they stand for, and how they show up consistently across every touchpoint — from business cards to Instagram reels.</p><p>Our process starts with deep discovery — understanding your market, your competitors, and your customers — before a single pixel is placed. The result is a brand that is not just beautiful, but strategically sound.</p></div>
+      <div class="exp-visual"><div class="exp-visual-tag">Brand Identity</div><div class="exp-visual-big">Identity that<br><em>commands</em><br>attention.</div><div class="exp-visual-foot">Universal Agencies Brand Studio</div></div>
+    </div>
+    <div class="exp-features"><h3>What is <em>included</em></h3><div class="features-grid"><div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></div><h4>Logo Design System</h4><p>Primary, secondary, and icon marks with full usage guidelines for every format and medium.</p></div><div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h4>Colour and Typography</h4><p>A curated palette and font system that communicates your brand personality at every glance.</p></div><div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h4>Brand Guidelines</h4><p>A comprehensive brand book your team can follow to stay consistent across all channels.</p></div><div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><h4>Brand Voice and Messaging</h4><p>Taglines, tone of voice, and key messaging that resonate with your target audience.</p></div><div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><h4>Digital Brand Assets</h4><p>Social media templates, banners, and profile kits ready to use from day one.</p></div><div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><h4>Competitive Positioning</h4><p>Market analysis and positioning strategy to ensure you stand out in your category.</p></div></div></div>
+    <div class="exp-cta-strip"><h3>Ready to build a brand<br><em>people remember?</em></h3><button class="btn-primary" onclick="showPage('form')">Start a Project</button></div>
+  </div>
+</div>
+
+<!-- EXPLORE: DIGITAL MARKETING -->
+<div id="page-digital" class="page exp-page">
+  <div class="exp-hero"><div class="exp-hero-orb"></div><button class="exp-back" onclick="showPage('main')">Back to Home</button><div class="exp-eyebrow">Service 02</div><h1 class="exp-title">Digital Marketing<br>&amp; <em>Growth</em></h1><p class="exp-sub">Performance-driven campaigns engineered to bring real customers, real visibility, and compound growth to your business.</p></div>
+  <div class="exp-body">
+    <div class="exp-intro">
+      <div class="exp-intro-text"><h2>Growth that is<br><em>measurable.</em></h2><p>Digital marketing is not about being everywhere — it is about being in the right place, in front of the right people, at the right time. Universal Agencies builds strategies that are data-informed and creatively led.</p><p>From Instagram and Google Ads to WhatsApp campaigns and SEO, we design campaigns that fit your budget, your audience, and your goals. Every rupee spent is tracked, optimised, and accountable.</p><p>Whether you are a new shop getting your first 1,000 followers or a brand looking to scale 10x, our growth playbooks are tailored to where you are and where you want to go.</p></div>
+      <div class="exp-visual"><div class="exp-visual-tag">Digital Growth</div><div class="exp-visual-big">Data-led.<br><em>Creatively</em><br>driven.</div><div class="exp-visual-foot">Universal Agencies Growth Studio</div></div>
+    </div>
+    <div class="exp-features"><h3>What is <em>included</em></h3><div class="features-grid"><div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div><h4>Social Media Marketing</h4><p>Content strategy, post creation, and paid campaigns across Instagram, Facebook, and beyond.</p></div><div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><h4>SEO and Google Presence</h4><p>Get found on Google. We optimise your listing, website, and content for local and organic search.</p></div><div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><h4>Paid Advertising</h4><p>ROI-focused Meta and Google ad campaigns with creative assets, targeting, and weekly reporting.</p></div><div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h4>WhatsApp Marketing</h4><p>Broadcast campaigns and automated flows that convert your existing contacts into loyal customers.</p></div><div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><h4>Email and Content Marketing</h4><p>Newsletters, blogs, and content that builds authority and keeps your audience engaged.</p></div><div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><h4>Analytics and Reporting</h4><p>Monthly performance dashboards so you always know what is working and where to double down.</p></div></div></div>
+    <div class="exp-cta-strip"><h3>Ready to grow<br><em>beyond limits?</em></h3><button class="btn-primary" onclick="showPage('form')">Start a Project</button></div>
+  </div>
+</div>
+
+<!-- EXPLORE: INFLUENCER -->
+<div id="page-influencer" class="page exp-page">
+  <div class="exp-hero"><div class="exp-hero-orb"></div><button class="exp-back" onclick="showPage('main')">Back to Home</button><div class="exp-eyebrow">Service 03</div><h1 class="exp-title">Influencer and Creator<br><em>Partnerships</em></h1><p class="exp-sub">We connect your brand with the right voices — authentic collaborations that build communities, trust, and real reach.</p></div>
+  <div class="exp-body">
+    <div class="exp-intro">
+      <div class="exp-intro-text"><h2>The right voice changes<br><em>everything.</em></h2><p>In a world of endless content, people trust people — not ads. Influencer marketing done right is one of the highest-ROI channels available, but only when the match between creator and brand is authentic.</p><p>Universal Agencies manages the entire collaboration journey — from finding and vetting the right creators for your niche, to negotiating deals, managing deliverables, and measuring campaign performance.</p><p>We work with nano, micro, and macro influencers across fashion, food, lifestyle, tech, and more — ensuring your brand reaches the right audiences in the most credible way possible.</p></div>
+      <div class="exp-visual"><div class="exp-visual-tag">Creator Economy</div><div class="exp-visual-big">Authentic<br>reach.<br><em>Real results.</em></div><div class="exp-visual-foot">Universal Agencies Creator Studio</div></div>
+    </div>
+    <div class="exp-features"><h3>What is <em>included</em></h3><div class="features-grid"><div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h4>Creator Discovery and Vetting</h4><p>We identify and shortlist creators whose audience, values, and style align perfectly with your brand.</p></div><div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h4>Campaign Brief and Strategy</h4><p>Clear creative briefs that protect your brand voice while giving creators room to be authentic.</p></div><div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h4>Contract and Deal Management</h4><p>We handle negotiations, contracts, and payments so you do not have to deal with the back-and-forth.</p></div><div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div><h4>Content Execution</h4><p>Reels, stories, posts, and YouTube integrations — tracked and delivered on time, every time.</p></div><div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><h4>Performance Analytics</h4><p>Full campaign reporting — reach, engagement, conversions, and ROI analysis post-campaign.</p></div><div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><h4>Long-term Creator Relations</h4><p>We build ongoing ambassador programs that create recurring brand presence across creator communities.</p></div></div></div>
+    <div class="exp-cta-strip"><h3>Ready to amplify your<br><em>brand's voice?</em></h3><button class="btn-primary" onclick="showPage('form')">Start a Project</button></div>
+  </div>
+</div>
+
+<!-- FORM PAGE -->
+<div id="page-form" class="page form-page">
+  <div class="form-header"><div class="form-header-logo">Universal<span>Agencies</span></div><div class="form-header-tag">Client Intake Form</div></div>
+  <div class="form-hero-banner"><div class="form-hero-eyebrow">Let's Work Together</div><h1>Tell us about<br><em>your vision.</em></h1><p>Fill in the form below and our team will get back to you within 24 hours with a tailored plan.</p></div>
+  <div class="progress-wrap"><div class="progress-steps" id="progressSteps"><div class="prog-step active" data-step="1"><div class="prog-dot">1</div><div class="prog-label">Basic Info</div></div><div class="prog-step" data-step="2"><div class="prog-dot">2</div><div class="prog-label">Business</div></div><div class="prog-step" data-step="3"><div class="prog-dot">3</div><div class="prog-label">Services</div></div><div class="prog-step" data-step="4"><div class="prog-dot">4</div><div class="prog-label">Budget</div></div><div class="prog-step" data-step="5"><div class="prog-dot">5</div><div class="prog-label">Final</div></div></div></div>
+  <div class="form-container">
+    <div class="form-section active" id="sec1"><div class="fsec-header"><div class="fsec-num">01</div><h2 class="fsec-title">Basic <em>Information</em></h2><p class="fsec-desc">Let's start with the essentials — who you are and how we can reach you.</p></div><div class="field-group"><div class="field" id="f-name"><label>Full Name <span>*</span></label><input type="text" id="fname" placeholder="e.g. Rahul Sharma"><span class="err-msg">Please enter your full name</span></div><div class="field" id="f-email"><label>Email Address <span>*</span></label><input type="email" id="femail" placeholder="you@example.com"><span class="err-msg">Please enter a valid email</span></div></div><div class="field-group"><div class="field" id="f-phone"><label>WhatsApp / Phone <span>*</span></label><input type="tel" id="fphone" placeholder="+91 98765 43210"><span class="err-msg">Please enter your phone number</span></div><div class="field"><label>Company / Brand / Shop Name</label><input type="text" id="fcompany" placeholder="e.g. Sharma Electronics"></div></div><div class="field-group full"><div class="field"><label>City and State</label><input type="text" id="fcity" placeholder="e.g. Nagpur, Maharashtra"></div></div><div class="form-nav"><span class="step-counter">Step 1 of 5</span><button class="btn-next" onclick="fNext(1)">Continue <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
+    <div class="form-section" id="sec2"><div class="fsec-header"><div class="fsec-num">02</div><h2 class="fsec-title">About Your <em>Business</em></h2><p class="fsec-desc">Help us understand where you are now so we can plan where you're going.</p></div><div class="field-group full"><div class="field"><label>Type of Business <span>*</span></label><div class="options-grid" id="bizType"><div class="option-item radio" onclick="selRadio(this,'bizType')"><input type="radio"><div class="option-check"></div><span class="option-label">Retail Shop</span></div><div class="option-item radio" onclick="selRadio(this,'bizType')"><input type="radio"><div class="option-check"></div><span class="option-label">Startup</span></div><div class="option-item radio" onclick="selRadio(this,'bizType')"><input type="radio"><div class="option-check"></div><span class="option-label">Established Brand</span></div><div class="option-item radio" onclick="selRadio(this,'bizType')"><input type="radio"><div class="option-check"></div><span class="option-label">Influencer / Creator</span></div><div class="option-item radio" onclick="selRadio(this,'bizType')"><input type="radio"><div class="option-check"></div><span class="option-label">Other</span></div></div><span class="err-msg" id="bizType-err">Please select your business type</span></div></div><div class="field-group full"><div class="field"><label>How long in business?</label><div class="options-grid" id="bizAge"><div class="option-item radio" onclick="selRadio(this,'bizAge')"><input type="radio"><div class="option-check"></div><span class="option-label">Less than 1 year</span></div><div class="option-item radio" onclick="selRadio(this,'bizAge')"><input type="radio"><div class="option-check"></div><span class="option-label">1-3 years</span></div><div class="option-item radio" onclick="selRadio(this,'bizAge')"><input type="radio"><div class="option-check"></div><span class="option-label">3+ years</span></div></div></div></div><div class="field-group full"><div class="field"><label>Current Online Presence</label><div class="options-grid" id="online"><div class="option-item radio" onclick="selRadio(this,'online')"><input type="radio"><div class="option-check"></div><span class="option-label">Yes - Website</span></div><div class="option-item radio" onclick="selRadio(this,'online')"><input type="radio"><div class="option-check"></div><span class="option-label">Social Media Only</span></div><div class="option-item radio" onclick="selRadio(this,'online')"><input type="radio"><div class="option-check"></div><span class="option-label">No - Starting Fresh</span></div></div></div></div><div class="form-nav"><button class="btn-back" onclick="fPrev(2)">Back</button><span class="step-counter">Step 2 of 5</span><button class="btn-next" onclick="fNext(2)">Continue <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
+    <div class="form-section" id="sec3"><div class="fsec-header"><div class="fsec-num">03</div><h2 class="fsec-title">Services and <em>Goals</em></h2><p class="fsec-desc">What do you need most? Select all that apply.</p></div><div class="field-group full"><div class="field"><label>Services Interested In <span>*</span></label><div class="options-grid" id="fservices"><div class="option-item" onclick="togCheck(this)"><input type="checkbox"><div class="option-check"></div><span class="option-label">Brand Identity</span></div><div class="option-item" onclick="togCheck(this)"><input type="checkbox"><div class="option-check"></div><span class="option-label">Online Store Setup</span></div><div class="option-item" onclick="togCheck(this)"><input type="checkbox"><div class="option-check"></div><span class="option-label">Social Media Marketing</span></div><div class="option-item" onclick="togCheck(this)"><input type="checkbox"><div class="option-check"></div><span class="option-label">Influencer Collaboration</span></div><div class="option-item" onclick="togCheck(this)"><input type="checkbox"><div class="option-check"></div><span class="option-label">Growth Strategy</span></div><div class="option-item" onclick="togCheck(this)"><input type="checkbox"><div class="option-check"></div><span class="option-label">Content Creation</span></div><div class="option-item" onclick="togCheck(this)"><input type="checkbox"><div class="option-check"></div><span class="option-label">Not sure yet</span></div></div><span class="err-msg" id="fsvc-err">Please select at least one service</span></div></div><div class="field-group full"><div class="field"><label>Biggest Challenge Right Now</label><textarea id="fchallenge" placeholder="e.g. No online presence, not getting enough customers..."></textarea></div></div><div class="field-group full"><div class="field"><label>Success in 6 months looks like?</label><textarea id="fsuccess" placeholder="e.g. 10,000 Instagram followers, strong brand identity..."></textarea></div></div><div class="form-nav"><button class="btn-back" onclick="fPrev(3)">Back</button><span class="step-counter">Step 3 of 5</span><button class="btn-next" onclick="fNext(3)">Continue <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
+    <div class="form-section" id="sec4"><div class="fsec-header"><div class="fsec-num">04</div><h2 class="fsec-title">Budget and <em>Timeline</em></h2><p class="fsec-desc">This helps us tailor the right plan for you — no commitment required.</p></div><div class="field-group full"><div class="field"><label>Monthly Marketing Budget</label><div class="options-grid" id="budget"><div class="option-item radio" onclick="selRadio(this,'budget')"><input type="radio"><div class="option-check"></div><span class="option-label">Under Rs 5,000</span></div><div class="option-item radio" onclick="selRadio(this,'budget')"><input type="radio"><div class="option-check"></div><span class="option-label">Rs 5,000 - Rs 15,000</span></div><div class="option-item radio" onclick="selRadio(this,'budget')"><input type="radio"><div class="option-check"></div><span class="option-label">Rs 15,000 - Rs 50,000</span></div><div class="option-item radio" onclick="selRadio(this,'budget')"><input type="radio"><div class="option-check"></div><span class="option-label">Rs 50,000+</span></div><div class="option-item radio" onclick="selRadio(this,'budget')"><input type="radio"><div class="option-check"></div><span class="option-label">Let's discuss</span></div></div></div></div><div class="field-group full"><div class="field"><label>When looking to start?</label><div class="options-grid" id="timeline"><div class="option-item radio" onclick="selRadio(this,'timeline')"><input type="radio"><div class="option-check"></div><span class="option-label">Immediately</span></div><div class="option-item radio" onclick="selRadio(this,'timeline')"><input type="radio"><div class="option-check"></div><span class="option-label">Within 1 month</span></div><div class="option-item radio" onclick="selRadio(this,'timeline')"><input type="radio"><div class="option-check"></div><span class="option-label">In 2-3 months</span></div><div class="option-item radio" onclick="selRadio(this,'timeline')"><input type="radio"><div class="option-check"></div><span class="option-label">Just exploring</span></div></div></div></div><div class="form-nav"><button class="btn-back" onclick="fPrev(4)">Back</button><span class="step-counter">Step 4 of 5</span><button class="btn-next" onclick="fNext(4)">Continue <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
+    <div class="form-section" id="sec5"><div class="fsec-header"><div class="fsec-num">05</div><h2 class="fsec-title">Almost <em>There!</em></h2><p class="fsec-desc">Just a couple more things before we connect.</p></div><div class="field-group full"><div class="field"><label>How did you hear about us?</label><div class="options-grid" id="referral"><div class="option-item radio" onclick="selRadio(this,'referral')"><input type="radio"><div class="option-check"></div><span class="option-label">Instagram</span></div><div class="option-item radio" onclick="selRadio(this,'referral')"><input type="radio"><div class="option-check"></div><span class="option-label">Referral / Word of Mouth</span></div><div class="option-item radio" onclick="selRadio(this,'referral')"><input type="radio"><div class="option-check"></div><span class="option-label">Google Search</span></div><div class="option-item radio" onclick="selRadio(this,'referral')"><input type="radio"><div class="option-check"></div><span class="option-label">Walk-in / Offline</span></div><div class="option-item radio" onclick="selRadio(this,'referral')"><input type="radio"><div class="option-check"></div><span class="option-label">Other</span></div></div></div></div><div class="field-group full"><div class="field"><label>Anything else to share?</label><textarea id="fextra" placeholder="Any additional context, requirements, or questions..." style="min-height:130px"></textarea><span class="field-hint">Optional — the more you share, the better we can help.</span></div></div><div class="form-nav"><button class="btn-back" onclick="fPrev(5)">Back</button><span class="step-counter">Step 5 of 5</span><button class="btn-next" style="background:var(--teal);border-color:var(--teal)" onclick="fSubmit()">Submit <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
+    <div id="success-screen"><div class="success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><h2 class="success-title">We've got your<br><em>details!</em></h2><p class="success-sub">Thank you for reaching out to Universal Agencies. Our team will review your submission and get back to you within 24 hours on WhatsApp or email.</p><div class="success-detail">Expect a call from us soon</div><br><br><button class="btn-primary" onclick="showPage('main')" style="margin:0 auto;display:inline-flex">Back to Home</button></div>
+  </div>
+</div>
+
+<script>
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+(function anim(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim);})();
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
+const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target);}});},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(id==='form')resetForm();
+}
+function showPhone(){
+  document.getElementById('phoneToast').classList.add('show');
+  setTimeout(()=>document.getElementById('phoneToast').classList.remove('show'),8000);
+}
+function copyPhone(){
+  navigator.clipboard.writeText('7558489440').then(()=>{
+    const b=document.querySelector('.copy-btn');
+    b.textContent='Copied!';setTimeout(()=>b.textContent='Copy',2000);
+  }).catch(()=>{
+    const t=document.getElementById('phoneToast');
+    const orig=t.querySelector('.phone-num').textContent;
+    alert('Number: 7558489440 — please copy it manually.');
+  });
+}
+let fCur=1;
+function fShowStep(n){
+  document.querySelectorAll('.form-section').forEach(s=>s.classList.remove('active'));
+  const s=document.getElementById('sec'+n);if(s)s.classList.add('active');
+  document.querySelectorAll('.prog-step').forEach(s=>{const sn=parseInt(s.dataset.step);s.classList.remove('active','done');if(sn===n)s.classList.add('active');else if(sn<n)s.classList.add('done');});
+  document.querySelector('.form-page').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function fValidate(step){
+  let ok=true;
+  if(step===1){
+    const n=document.getElementById('fname'),e=document.getElementById('femail'),p=document.getElementById('fphone');
+    const fn=document.getElementById('f-name'),fe=document.getElementById('f-email'),fp=document.getElementById('f-phone');
+    fn.classList.remove('has-error');fe.classList.remove('has-error');fp.classList.remove('has-error');
+    if(!n.value.trim()){fn.classList.add('has-error');ok=false;}
+    if(!e.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)){fe.classList.add('has-error');ok=false;}
+    if(!p.value.trim()){fp.classList.add('has-error');ok=false;}
+  }
+  if(step===2){const sel=document.querySelectorAll('#bizType .option-item.selected');const err=document.getElementById('bizType-err');if(!sel.length){err.style.display='block';ok=false;}else err.style.display='none';}
+  if(step===3){const sel=document.querySelectorAll('#fservices .option-item.selected');const err=document.getElementById('fsvc-err');if(!sel.length){err.style.display='block';ok=false;}else err.style.display='none';}
+  return ok;
+}
+function fNext(s){if(!fValidate(s))return;fCur=s+1;fShowStep(fCur);}
+function fPrev(s){fCur=s-1;fShowStep(fCur);}
+function selRadio(el,gid){document.querySelectorAll('#'+gid+' .option-item').forEach(i=>i.classList.remove('selected'));el.classList.add('selected');}
+function togCheck(el){el.classList.toggle('selected');}
+function fSubmit(){
+  document.querySelectorAll('.form-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.prog-step').forEach(s=>{s.classList.remove('active');s.classList.add('done');});
+  const ss=document.getElementById('success-screen');ss.style.display='block';ss.classList.add('active');
+}
+function resetForm(){
+  fCur=1;
+  document.querySelectorAll('.form-section').forEach(s=>s.classList.remove('active'));
+  const s1=document.getElementById('sec1');if(s1)s1.classList.add('active');
+  document.querySelectorAll('.prog-step').forEach(s=>{s.classList.remove('active','done');if(s.dataset.step==='1')s.classList.add('active');});
+  const ss=document.getElementById('success-screen');ss.style.display='none';ss.classList.remove('active');
+  document.querySelectorAll('.option-item').forEach(i=>i.classList.remove('selected'));
+  document.querySelectorAll('input[type=text],input[type=email],input[type=tel],textarea').forEach(i=>i.value='');
+  document.querySelectorAll('.has-error').forEach(f=>f.classList.remove('has-error'));
+}
+</script>
+</body>
+</html>
