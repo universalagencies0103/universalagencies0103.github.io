@@ -24,10 +24,33 @@ body::before{content:'';position:fixed;inset:0;z-index:1000;pointer-events:none;
 .copy-btn:hover{background:#0a5e57}
 .close-toast{background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;font-size:1.1rem;line-height:1;padding:0}
 
+/* ── HAMBURGER MENU ── */
+.hb-trigger{position:fixed;top:1.4rem;left:1.4rem;z-index:600;width:46px;height:46px;border-radius:12px;background:rgba(17,17,17,.85);backdrop-filter:blur(20px);border:1px solid rgba(15,118,110,.3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;transition:all .3s}
+.hb-trigger:hover{background:rgba(15,118,110,.2);border-color:var(--teal)}
+.hb-line{width:20px;height:1.5px;background:var(--white);border-radius:2px;transition:all .3s}
+.hb-trigger.open .hb-line:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hb-trigger.open .hb-line:nth-child(2){opacity:0;transform:scaleX(0)}
+.hb-trigger.open .hb-line:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.hb-drawer{position:fixed;top:0;left:0;bottom:0;width:280px;z-index:590;background:rgba(13,13,13,.97);backdrop-filter:blur(30px);border-right:1px solid rgba(15,118,110,.18);transform:translateX(-100%);transition:transform .45s cubic-bezier(.77,0,.175,1);padding:5.5rem 2rem 2rem;display:flex;flex-direction:column;gap:.4rem}
+.hb-drawer.open{transform:translateX(0)}
+.hb-drawer-logo{font-family:var(--serif);font-size:1.1rem;color:var(--white);margin-bottom:1.8rem;padding-bottom:1.4rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.hb-drawer-logo span{color:var(--teal)}
+.hb-item{display:flex;align-items:center;gap:.8rem;padding:.8rem 1rem;border-radius:8px;font-size:.82rem;font-weight:500;letter-spacing:.5px;color:rgba(255,255,255,.6);cursor:pointer;transition:all .2s;border:none;background:none;font-family:var(--sans);width:100%;text-align:left}
+.hb-item:hover{background:rgba(15,118,110,.12);color:var(--white)}
+.hb-item svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;flex-shrink:0}
+.hb-item.danger{color:rgba(231,76,60,.6)}
+.hb-item.danger:hover{background:rgba(231,76,60,.1);color:#e74c3c}
+.hb-spacer{height:1px;background:rgba(255,255,255,.05);margin:.5rem 0}
+.hb-session-badge{display:flex;align-items:center;gap:.6rem;padding:.6rem 1rem;border-radius:8px;background:rgba(15,118,110,.1);border:1px solid rgba(15,118,110,.2);margin-bottom:.6rem}
+.hb-session-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);flex-shrink:0}
+.hb-session-text{font-size:.72rem;color:var(--sage);font-weight:500;letter-spacing:.5px}
+.hb-overlay{position:fixed;inset:0;z-index:580;background:rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .3s}
+.hb-overlay.open{opacity:1;pointer-events:all}
+
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.6rem 4rem;display:flex;align-items:center;justify-content:space-between;transition:background .4s,padding .3s}
 nav.scrolled{background:rgba(248,247,244,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(232,221,212,.7);padding:1.1rem 4rem}
-.nav-logo{font-family:var(--serif);font-size:1.35rem;font-weight:500;color:var(--black);text-decoration:none;cursor:pointer}
+.nav-logo{font-family:var(--serif);font-size:1.35rem;font-weight:500;color:var(--black);text-decoration:none;cursor:pointer;margin-left:3.5rem}
 .nav-logo span{color:var(--teal)}
 .nav-links{display:flex;gap:2.5rem;list-style:none}
 .nav-links a{font-size:.8rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);text-decoration:none;transition:color .2s;cursor:pointer}
@@ -229,7 +252,7 @@ footer{background:var(--black);padding:5rem 4rem 2.5rem;color:var(--white)}
 .field{display:flex;flex-direction:column;gap:.45rem}
 label{font-size:.75rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--black)}
 label span{color:var(--teal)}
-input[type=text],input[type=email],input[type=tel],textarea{font-family:var(--sans);font-size:.9rem;font-weight:300;color:var(--black);background:var(--white);border:1px solid rgba(17,17,17,.12);border-radius:6px;padding:.85rem 1rem;outline:none;transition:border-color .25s,box-shadow .25s;width:100%}
+input[type=text],input[type=email],input[type=tel],input[type=password],textarea{font-family:var(--sans);font-size:.9rem;font-weight:300;color:var(--black);background:var(--white);border:1px solid rgba(17,17,17,.12);border-radius:6px;padding:.85rem 1rem;outline:none;transition:border-color .25s,box-shadow .25s;width:100%}
 input:focus,textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(15,118,110,.08)}
 textarea{resize:vertical;min-height:110px;line-height:1.7}
 .field-hint{font-size:.72rem;color:var(--gray);font-weight:300}
@@ -261,9 +284,33 @@ textarea{resize:vertical;min-height:110px;line-height:1.7}
 .success-sub{font-size:.9rem;color:var(--gray);font-weight:300;line-height:1.8;max-width:440px;margin:0 auto 2.5rem}
 .success-detail{display:inline-flex;align-items:center;gap:.6rem;font-size:.78rem;font-weight:500;color:var(--teal);padding:.6rem 1.2rem;border:1px solid var(--border);border-radius:20px}
 
+/* ── AUTH MODAL ── */
+.auth-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(12px);z-index:8500;display:none;align-items:center;justify-content:center;padding:2rem}
+.auth-modal-overlay.open{display:flex}
+.auth-modal{background:#111;border:1px solid rgba(15,118,110,.25);border-radius:20px;width:100%;max-width:420px;overflow:hidden;position:relative;box-shadow:0 40px 80px rgba(0,0,0,.6)}
+.auth-modal-header{padding:2.5rem 2.5rem 1.5rem;background:linear-gradient(145deg,#111,#1a2e2b);border-bottom:1px solid rgba(255,255,255,.06);text-align:center}
+.auth-modal-icon{width:52px;height:52px;border-radius:14px;background:rgba(15,118,110,.15);border:1px solid rgba(15,118,110,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem}
+.auth-modal-icon svg{width:22px;height:22px;stroke:var(--teal);fill:none;stroke-width:1.5}
+.auth-modal-title{font-family:var(--serif);font-size:1.6rem;font-weight:400;color:var(--white);margin-bottom:.3rem}
+.auth-modal-title em{font-style:italic;color:var(--teal)}
+.auth-modal-sub{font-size:.8rem;color:rgba(255,255,255,.4);font-weight:300}
+.auth-modal-body{padding:2rem 2.5rem 2.5rem}
+.auth-field{margin-bottom:1.2rem}
+.auth-label{font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.5rem;display:block}
+.auth-input{font-family:var(--sans);font-size:.9rem;font-weight:300;color:var(--white);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:.85rem 1rem;outline:none;transition:border-color .25s,box-shadow .25s;width:100%}
+.auth-input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(15,118,110,.12)}
+.auth-error{font-size:.75rem;color:#e74c3c;margin-top:.5rem;display:none;padding:.5rem .8rem;background:rgba(231,76,60,.08);border-radius:6px;border:1px solid rgba(231,76,60,.2)}
+.auth-error.show{display:block}
+.auth-submit{font-family:var(--sans);font-size:.82rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:1rem 2rem;border-radius:8px;background:var(--teal);color:var(--white);border:none;cursor:pointer;transition:all .3s;width:100%;min-height:48px;margin-top:1.4rem}
+.auth-submit:hover{background:#0a5e57;transform:translateY(-2px)}
+.auth-close{position:absolute;top:1.2rem;right:1.2rem;background:rgba(255,255,255,.06);border:none;color:rgba(255,255,255,.4);cursor:pointer;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:.9rem}
+.auth-close:hover{background:rgba(255,255,255,.1);color:var(--white)}
+.auth-switch{text-align:center;margin-top:1.2rem;font-size:.78rem;color:rgba(255,255,255,.3);font-weight:300}
+.auth-switch a{color:var(--teal);cursor:pointer;text-decoration:underline}
+
 /* ── ADMIN DASHBOARD ── */
 .admin-page{min-height:100vh;background:#0d0d0d}
-.admin-header{background:#111;border-bottom:1px solid rgba(15,118,110,.25);padding:1.2rem 3rem;display:flex;align-items:center;justify-content:space-between}
+.admin-header{background:#111;border-bottom:1px solid rgba(15,118,110,.25);padding:1.8rem 6rem;display:flex;align-items:center;justify-content:space-between}
 .admin-logo{font-family:var(--serif);font-size:1.2rem;color:var(--white)}
 .admin-logo span{color:var(--teal)}
 .admin-badge{font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:.3rem .8rem;border-radius:20px;background:rgba(15,118,110,.15);color:var(--teal);border:1px solid rgba(15,118,110,.3)}
@@ -302,6 +349,52 @@ textarea{resize:vertical;min-height:110px;line-height:1.7}
 .empty-icon{font-size:2.5rem;margin-bottom:1rem;opacity:.3}
 .empty-state p{font-family:var(--serif);font-size:1.2rem;color:rgba(255,255,255,.25);font-style:italic}
 
+/* ── USER DASHBOARD ── */
+.user-page{min-height:100vh;background:var(--white)}
+.user-header{background:var(--black);padding:1.8rem 6rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(15,118,110,.2)}
+.user-header-logo{font-family:var(--serif);font-size:1.2rem;color:var(--white)}
+.user-header-logo span{color:var(--teal)}
+.user-header-right{display:flex;align-items:center;gap:5rem}
+.user-welcome{font-size:.78rem;font-weight:500;color:rgba(255,255,255,.5)}
+.user-welcome strong{color:var(--teal)}
+.user-body{padding:2rem 3rem 4rem}
+.user-banner{background:linear-gradient(135deg,#111 0%,#1a2e2b 60%,#0f3330 100%);border-radius:16px;padding:2.5rem 3rem;position:relative;overflow:hidden;margin-bottom:2rem}
+.user-banner::before{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(15,118,110,.2) 0%,transparent 70%);top:50%;right:-50px;transform:translateY(-50%);pointer-events:none}
+.user-banner-eyebrow{font-size:.68rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--sage);margin-bottom:.8rem}
+.user-banner h2{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:400;color:var(--white);margin-bottom:.6rem;position:relative;z-index:1}
+.user-banner h2 em{font-style:italic;color:var(--teal)}
+.user-banner p{font-size:.88rem;color:rgba(255,255,255,.5);font-weight:300;max-width:460px;position:relative;z-index:1}
+.user-grid{display:grid;grid-template-columns:2fr 1fr;gap:2rem;margin-bottom:2rem;align-items:start}
+.user-card{background:var(--white);border:1px solid rgba(232,221,212,.9);border-radius:16px;overflow:hidden}
+.user-card-header{padding:1.5rem 2rem;border-bottom:1px solid rgba(232,221,212,.7);display:flex;align-items:center;justify-content:space-between}
+.user-card-title{font-family:var(--serif);font-size:1.2rem;font-weight:500;color:var(--black)}
+.user-card-title em{font-style:italic;color:var(--teal)}
+.user-card-tag{font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:.3rem .8rem;border-radius:20px;background:rgba(15,118,110,.1);color:var(--teal);border:1px solid rgba(15,118,110,.2)}
+.user-card-body{padding:1.5rem 2rem}
+.pkg-list{display:flex;flex-direction:column;gap:1rem}
+.pkg-item{display:flex;align-items:center;gap:1.2rem;padding:1.2rem 1.5rem;border-radius:10px;border:1px solid rgba(232,221,212,.7);transition:border-color .2s,transform .2s}
+.pkg-item:hover{border-color:var(--teal);transform:translateX(4px)}
+.pkg-dot{width:10px;height:10px;border-radius:50%;background:var(--teal);flex-shrink:0}
+.pkg-info h4{font-family:var(--serif);font-size:1rem;font-weight:500;color:var(--black);margin-bottom:.2rem}
+.pkg-info p{font-size:.78rem;color:var(--gray);font-weight:300}
+.pkg-price{font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--teal);margin-left:auto;white-space:nowrap}
+.update-list{display:flex;flex-direction:column;gap:.8rem}
+.update-item{display:flex;gap:.8rem;align-items:flex-start;padding:.9rem;border-radius:8px;background:rgba(232,221,212,.25);border:1px solid rgba(232,221,212,.5)}
+.update-icon{width:28px;height:28px;border-radius:6px;background:rgba(15,118,110,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.update-icon svg{width:13px;height:13px;stroke:var(--teal);fill:none;stroke-width:1.5}
+.update-text{font-size:.8rem;font-weight:300;color:var(--gray);line-height:1.6}
+.update-text strong{color:var(--black);font-weight:500}
+.announce-card{background:linear-gradient(145deg,#111,#1a2e2b);border-radius:16px;padding:2rem;border:1px solid rgba(15,118,110,.2)}
+.announce-eyebrow{font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--sage);margin-bottom:.8rem}
+.announce-title{font-family:var(--serif);font-size:1.3rem;font-weight:400;color:var(--white);margin-bottom:.6rem}
+.announce-title em{font-style:italic;color:var(--teal)}
+.announce-body{font-size:.8rem;color:rgba(255,255,255,.45);font-weight:300;line-height:1.7}
+.cinfo-list{display:flex;flex-direction:column;gap:.6rem}
+.cinfo-row{display:flex;justify-content:space-between;align-items:center;padding:.7rem 0;border-bottom:1px solid rgba(232,221,212,.5)}
+.cinfo-row:last-child{border-bottom:none}
+.cinfo-label{font-size:.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gray)}
+.cinfo-value{font-size:.82rem;font-weight:400;color:var(--black)}
+
 /* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:8000;display:none;align-items:center;justify-content:center;padding:2rem}
 .modal-overlay.open{display:flex}
@@ -333,23 +426,199 @@ textarea{resize:vertical;min-height:110px;line-height:1.7}
   .exp-intro{grid-template-columns:1fr;gap:2.5rem}.features-grid{grid-template-columns:1fr}
   .exp-hero,.exp-body{padding-left:1.5rem;padding-right:1.5rem}.exp-cta-strip{flex-direction:column;text-align:center}
   .field-group{grid-template-columns:1fr}.form-header{padding:1rem 1.2rem}
-  .admin-body{padding:1.5rem}
-  .admin-stats{grid-template-columns:1fr 1fr}
+  .admin-body{padding:1.5rem}.admin-stats{grid-template-columns:1fr 1fr}
   .table-head,.entry-row{grid-template-columns:1fr 1fr 80px}
   .th:nth-child(3),.th:nth-child(4),.th:nth-child(5),.td:nth-child(3),.td:nth-child(4),.td:nth-child(5){display:none}
   .modal-grid{grid-template-columns:1fr}
+  .user-grid{grid-template-columns:1fr}.user-body{padding:1.5rem}
+  .user-header{padding:.9rem 1.2rem}
+  .nav-logo{margin-left:3rem}
 }
+
+/* ── LOGIN SUCCESS ANIMATION ── */
+.login-flash{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0}
+.login-flash.show{animation:flashIn 1.8s cubic-bezier(.22,1,.36,1) forwards}
+@keyframes flashIn{
+  0%{opacity:0;background:rgba(15,118,110,0)}
+  15%{opacity:1;background:rgba(15,118,110,.15)}
+  40%{opacity:1;background:rgba(15,118,110,.08)}
+  100%{opacity:0;background:rgba(15,118,110,0)}
+}
+.login-flash-card{background:#111;border:1px solid rgba(15,118,110,.4);border-radius:20px;padding:2.5rem 3.5rem;text-align:center;transform:scale(.85) translateY(20px);opacity:0;box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 0 1px rgba(15,118,110,.1)}
+.login-flash.show .login-flash-card{animation:cardPop 1.8s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes cardPop{
+  0%{transform:scale(.85) translateY(20px);opacity:0}
+  25%{transform:scale(1.02) translateY(0);opacity:1}
+  45%{transform:scale(1) translateY(0);opacity:1}
+  80%{transform:scale(1) translateY(0);opacity:1}
+  100%{transform:scale(.95) translateY(-10px);opacity:0}
+}
+.lf-icon{width:56px;height:56px;border-radius:50%;background:rgba(15,118,110,.2);border:1.5px solid rgba(15,118,110,.5);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;animation:none}
+.login-flash.show .lf-icon{animation:iconSpin .6s .1s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes iconSpin{from{transform:scale(0) rotate(-180deg)}to{transform:scale(1) rotate(0deg)}}
+.lf-icon svg{width:24px;height:24px;stroke:var(--teal);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lf-role{font-size:.65rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--sage);margin-bottom:.5rem}
+.lf-title{font-family:var(--serif);font-size:1.6rem;font-weight:400;color:var(--white)}
+.lf-title em{font-style:italic;color:var(--teal)}
+.lf-name{font-size:.82rem;font-weight:300;color:rgba(255,255,255,.4);margin-top:.3rem}
+
+/* ── PAGE TRANSITION FADE ── */
+.page-fade-out{animation:pageFadeOut .6s ease forwards}
+.page-fade-in{animation:pageFadeIn .6s ease forwards}
+@keyframes pageFadeOut{
+  0%{opacity:1;transform:scale(1)}
+  100%{opacity:0;transform:scale(.98)}
+}
+@keyframes pageFadeIn{
+  0%{opacity:0;transform:scale(.98)}
+  100%{opacity:1;transform:scale(1)}
+}
+
+@media(max-width:600px){
+  .user-stats-grid{grid-template-columns:1fr !important}
+}
+
+/* ── CLIENT DATA MODAL ── */
+.cdata-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(12px);z-index:8500;display:none;align-items:center;justify-content:center;padding:2rem;overflow-y:auto}
+.cdata-modal-overlay.open{display:flex}
+.cdata-modal{background:#1a1a1a;border:1px solid rgba(15,118,110,.25);border-radius:20px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto}
+.cdata-header{padding:1.8rem 2rem;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between}
+.cdata-title{font-family:var(--serif);font-size:1.4rem;font-weight:400;color:var(--white)}
+.cdata-title em{font-style:italic;color:var(--teal)}
+.cdata-close{background:rgba(255,255,255,.06);border:none;color:rgba(255,255,255,.4);cursor:pointer;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:.9rem}
+.cdata-close:hover{background:rgba(255,255,255,.1);color:var(--white)}
+.cdata-body{padding:1.8rem 2rem 2rem}
+.cdata-field{margin-bottom:1.2rem}
+.cdata-label{font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.5rem;display:block}
+.cdata-input{font-family:var(--sans);font-size:.88rem;font-weight:300;color:var(--white);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:.8rem 1rem;outline:none;transition:border-color .25s;width:100%}
+.cdata-input:focus{border-color:var(--teal)}
+.cdata-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.cdata-section{font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin:1.6rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid rgba(15,118,110,.2)}
+.cdata-submit{font-family:var(--sans);font-size:.82rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:1rem 2rem;border-radius:8px;background:var(--teal);color:var(--white);border:none;cursor:pointer;transition:all .3s;width:100%;margin-top:1.4rem}
+.cdata-submit:hover{background:#0a5e57}
+.cdata-success{display:none;text-align:center;padding:1rem 0}
+.cdata-success.show{display:block}
+.cdata-success-icon{width:48px;height:48px;border-radius:50%;background:rgba(15,118,110,.2);border:1px solid rgba(15,118,110,.4);display:flex;align-items:center;justify-content:center;margin:0 auto .8rem}
+.cdata-success-icon svg{width:20px;height:20px;stroke:var(--teal);fill:none;stroke-width:2}
+
+/* ── CLIENT ACCOUNTS TABLE ── */
+.ca-row{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr 1fr 1fr 1fr 80px;gap:0;padding:1rem 1.5rem;border-bottom:1px solid rgba(255,255,255,.04);transition:background .2s}
+.ca-row:last-child{border-bottom:none}
+.ca-row:hover{background:rgba(15,118,110,.06)}
+.ca-cell{font-size:.82rem;color:rgba(255,255,255,.65);font-weight:300;display:flex;align-items:center;padding-right:.8rem;overflow:hidden}
+.ca-name{font-weight:500;color:var(--white);flex-direction:column;align-items:flex-start;gap:.15rem}
+.ca-username{font-size:.72rem;color:rgba(255,255,255,.3)}
+
+/* inline edit */
+.ca-edit-row{display:none;padding:1.2rem 1.5rem;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(15,118,110,.04)}
+.ca-edit-row.open{display:block}
+.ca-edit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-bottom:1rem}
+.ca-edit-grid-2{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-bottom:1rem}
+.ca-edit-field label{font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.3);display:block;margin-bottom:.35rem}
+.ca-edit-field input{font-family:var(--sans);font-size:.82rem;font-weight:300;color:var(--white);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:.6rem .8rem;outline:none;width:100%;transition:border-color .2s}
+.ca-edit-field input:focus{border-color:var(--teal)}
+.ca-edit-actions{display:flex;gap:.6rem;align-items:center}
+.ca-save-btn{font-family:var(--sans);font-size:.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:.5rem 1.2rem;border-radius:6px;background:var(--teal);color:var(--white);border:none;cursor:pointer;transition:all .2s}
+.ca-save-btn:hover{background:#0a5e57}
+.ca-cancel-btn{font-family:var(--sans);font-size:.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:.5rem 1.2rem;border-radius:6px;background:transparent;color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.1);cursor:pointer;transition:all .2s}
+.ca-cancel-btn:hover{color:var(--white);border-color:rgba(255,255,255,.3)}
+
+.stat-edit-btn {
+  position:absolute;top:.7rem;right:.7rem;
+  background:rgba(15,118,110,.15);border:1px solid rgba(15,118,110,.25);
+  color:var(--teal);width:26px;height:26px;border-radius:6px;
+  font-size:.85rem;cursor:pointer;display:flex;align-items:center;
+  justify-content:center;transition:all .2s;line-height:1;
+}
+.stat-edit-btn:hover {
+  background:rgba(15,118,110,.3);border-color:var(--teal);
+  transform:scale(1.1);
+}
+
 </style>
+
+<!-- Firebase CDN -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
 </head>
 <body>
+
+  <!-- LOGIN FLASH ANIMATION -->
+<div class="login-flash" id="loginFlash">
+  <div class="login-flash-card">
+    <div class="lf-icon">
+      <svg id="lfIcon" viewBox="0 0 24 24"></svg>
+    </div>
+    <div class="lf-role" id="lfRole">Admin Access</div>
+    <div class="lf-title" id="lfTitle">Welcome <em>back.</em></div>
+    <div class="lf-name" id="lfName"></div>
+  </div>
+</div>
+
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
 
+<!-- PHONE TOAST -->
 <div class="phone-toast" id="phoneToast">
   <span>Call us:</span>
   <span class="phone-num">+91 75584 89440</span>
   <button class="copy-btn" onclick="copyPhone()">Copy</button>
   <button class="close-toast" onclick="document.getElementById('phoneToast').classList.remove('show')">&#x2715;</button>
+</div>
+
+<!-- ── HAMBURGER ── -->
+<div class="hb-overlay" id="hbOverlay" onclick="closeHB()"></div>
+<button class="hb-trigger" id="hbTrigger" onclick="toggleHB()">
+  <div class="hb-line"></div><div class="hb-line"></div><div class="hb-line"></div>
+</button>
+<div class="hb-drawer" id="hbDrawer">
+  <div class="hb-drawer-logo">Universal<span>Agencies</span></div>
+  <div id="hb-session-area"></div>
+  <button class="hb-item" onclick="closeHB();showPage('main')">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home
+  </button>
+  <div class="hb-spacer"></div>
+  <button class="hb-item" id="hb-user-login" onclick="closeHB();openAuth('user')">
+    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Client Login
+  </button>
+  <button class="hb-item" id="hb-admin-login" onclick="closeHB();openAuth('admin')">
+    <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Admin Login
+  </button>
+  <button class="hb-item" id="hb-dashboard" style="display:none" onclick="closeHB();goToDashboard()">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>My Dashboard
+  </button>
+  <div class="hb-spacer"></div>
+  <button class="hb-item danger" id="hb-logout" style="display:none" onclick="closeHB();doLogout()">
+    <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Logout
+  </button>
+</div>
+
+<!-- ── AUTH MODAL ── -->
+<div class="auth-modal-overlay" id="authModal">
+  <div class="auth-modal">
+    <button class="auth-close" onclick="closeAuth()">&#x2715;</button>
+    <div class="auth-modal-header">
+      <div class="auth-modal-icon">
+        <svg id="authIcon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <div class="auth-modal-title" id="authTitle">Admin <em>Login</em></div>
+      <div class="auth-modal-sub" id="authSub">Enter your credentials to access the dashboard</div>
+    </div>
+    <div class="auth-modal-body">
+      <div class="auth-field">
+        <label class="auth-label">Username</label>
+        <input type="text" class="auth-input" id="authUser" placeholder="Enter username" autocomplete="username">
+      </div>
+      <div class="auth-field">
+        <label class="auth-label">Password</label>
+        <input type="password" class="auth-input" id="authPass" placeholder="Enter password" autocomplete="current-password">
+      </div>
+      <div class="auth-error" id="authError">Invalid username or password. Please try again.</div>
+      <button class="auth-submit" id="authSubmitBtn" onclick="doAuth()">Sign In &#8594;</button>
+      <div class="auth-switch" id="authSwitch"></div>
+    </div>
+  </div>
 </div>
 
 <!-- ENTRY DETAIL MODAL -->
@@ -368,7 +637,6 @@ textarea{resize:vertical;min-height:110px;line-height:1.7}
   <ul class="nav-links">
     <li><a onclick="showPage('main');setTimeout(()=>document.getElementById('services').scrollIntoView({behavior:'smooth'}),100)">Services</a></li>
     <li><a onclick="showPage('main');setTimeout(()=>document.getElementById('process').scrollIntoView({behavior:'smooth'}),100)">Process</a></li>
-    <li><a onclick="showPage('admin')" style="color:var(--teal)">&#9881; Admin</a></li>
   </ul>
   <button class="nav-cta" onclick="showPage('form')">Start a Project</button>
 </nav>
@@ -492,8 +760,8 @@ textarea{resize:vertical;min-height:110px;line-height:1.7}
   <div class="progress-wrap"><div class="progress-steps" id="progressSteps"><div class="prog-step active" data-step="1"><div class="prog-dot">1</div><div class="prog-label">Basic Info</div></div><div class="prog-step" data-step="2"><div class="prog-dot">2</div><div class="prog-label">Business</div></div><div class="prog-step" data-step="3"><div class="prog-dot">3</div><div class="prog-label">Services</div></div><div class="prog-step" data-step="4"><div class="prog-dot">4</div><div class="prog-label">Budget</div></div><div class="prog-step" data-step="5"><div class="prog-dot">5</div><div class="prog-label">Final</div></div></div></div>
   <div class="form-container">
     <div class="form-section active" id="sec1"><div class="fsec-header"><div class="fsec-num">01</div><h2 class="fsec-title">Basic <em>Information</em></h2><p class="fsec-desc">Let's start with the essentials — who you are and how we can reach you.</p></div><div class="field-group"><div class="field" id="f-name"><label>Full Name <span>*</span></label><input type="text" id="fname" placeholder="e.g. Rahul Sharma"><span class="err-msg">Please enter your full name</span></div><div class="field" id="f-email"><label>Email Address <span>*</span></label><input type="email" id="femail" placeholder="you@example.com"><span class="err-msg">Please enter a valid email</span></div></div><div class="field-group"><div class="field" id="f-phone"><label>WhatsApp / Phone <span>*</span></label><input type="tel" id="fphone" placeholder="+91 98765 43210"><span class="err-msg">Please enter your phone number</span></div><div class="field"><label>Company / Brand / Shop Name</label><input type="text" id="fcompany" placeholder="e.g. Sharma Electronics"></div></div><div class="field-group full"><div class="field"><label>City &amp; State</label><input type="text" id="fcity" placeholder="e.g. Nagpur, Maharashtra"></div></div><div class="form-nav"><span class="step-counter">Step 1 of 5</span><button class="btn-next" onclick="fNext(1)">Continue <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
-    <div class="form-section" id="sec2"><div class="fsec-header"><div class="fsec-num">02</div><h2 class="fsec-title">About Your <em>Business</em></h2><p class="fsec-desc">Help us understand where you are now so we can plan where you are going.</p></div><div class="field-group full"><div class="field"><label>Type of Business <span>*</span></label><div class="options-grid" id="bizType"><div class="option-item radio" onclick="selR(this,'bizType')"><input type="radio"><div class="option-check"></div><span class="option-label">Retail Shop</span></div><div class="option-item radio" onclick="selR(this,'bizType')"><input type="radio"><div class="option-check"></div><span class="option-label">Startup</span></div><div class="option-item radio" onclick="selR(this,'bizType')"><input type="radio"><div class="option-check"></div><span class="option-label">Established Brand</span></div><div class="option-item radio" onclick="selR(this,'bizType')"><input type="radio"><div class="option-check"></div><span class="option-label">Influencer / Creator</span></div><div class="option-item radio" onclick="selR(this,'bizType')"><input type="radio"><div class="option-check"></div><span class="option-label">Other</span></div></div><span class="err-msg" id="bizType-err">Please select your business type</span></div></div><div class="field-group full"><div class="field"><label>How long in business?</label><div class="options-grid" id="bizAge"><div class="option-item radio" onclick="selR(this,'bizAge')"><input type="radio"><div class="option-check"></div><span class="option-label">Less than 1 year</span></div><div class="option-item radio" onclick="selR(this,'bizAge')"><input type="radio"><div class="option-check"></div><span class="option-label">1-3 years</span></div><div class="option-item radio" onclick="selR(this,'bizAge')"><input type="radio"><div class="option-check"></div><span class="option-label">3+ years</span></div></div></div></div><div class="field-group full"><div class="field"><label>Current Online Presence</label><div class="options-grid" id="online"><div class="option-item radio" onclick="selR(this,'online')"><input type="radio"><div class="option-check"></div><span class="option-label">Yes - Website</span></div><div class="option-item radio" onclick="selR(this,'online')"><input type="radio"><div class="option-check"></div><span class="option-label">Social Media Only</span></div><div class="option-item radio" onclick="selR(this,'online')"><input type="radio"><div class="option-check"></div><span class="option-label">No - Starting Fresh</span></div></div></div></div><div class="form-nav"><button class="btn-back" onclick="fPrev(2)">&#8592; Back</button><span class="step-counter">Step 2 of 5</span><button class="btn-next" onclick="fNext(2)">Continue <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
-    <div class="form-section" id="sec3"><div class="fsec-header"><div class="fsec-num">03</div><h2 class="fsec-title">Services &amp; <em>Goals</em></h2><p class="fsec-desc">What do you need most? Select all that apply.</p></div><div class="field-group full"><div class="field"><label>Services Interested In <span>*</span></label><div class="options-grid" id="fservices"><div class="option-item" onclick="togC(this)"><input type="checkbox"><div class="option-check"></div><span class="option-label">Brand Identity</span></div><div class="option-item" onclick="togC(this)"><input type="checkbox"><div class="option-check"></div><span class="option-label">Online Store Setup</span></div><div class="option-item" onclick="togC(this)"><input type="checkbox"><div class="option-check"></div><span class="option-label">Social Media Marketing</span></div><div class="option-item" onclick="togC(this)"><input type="checkbox"><div class="option-check"></div><span class="option-label">Influencer Collaboration</span></div><div class="option-item" onclick="togC(this)"><input type="checkbox"><div class="option-check"></div><span class="option-label">Growth Strategy</span></div><div class="option-item" onclick="togC(this)"><input type="checkbox"><div class="option-check"></div><span class="option-label">Content Creation</span></div><div class="option-item" onclick="togC(this)"><input type="checkbox"><div class="option-check"></div><span class="option-label">Not sure yet</span></div></div><span class="err-msg" id="fsvc-err">Please select at least one service</span></div></div><div class="field-group full"><div class="field"><label>Biggest Challenge Right Now</label><textarea id="fchallenge" placeholder="e.g. No online presence, not getting enough customers..."></textarea></div></div><div class="field-group full"><div class="field"><label>Success in 6 months looks like?</label><textarea id="fsuccess" placeholder="e.g. 10,000 Instagram followers, strong brand identity..."></textarea></div></div><div class="form-nav"><button class="btn-back" onclick="fPrev(3)">&#8592; Back</button><span class="step-counter">Step 3 of 5</span><button class="btn-next" onclick="fNext(3)">Continue <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
+    <div class="form-section" id="sec2"><div class="fsec-header"><div class="fsec-num">02</div><h2 class="fsec-title">About Your <em>Business</em></h2><p class="fsec-desc">Help us understand where you are now so we can plan where you are going.</p></div><div class="field-group full"><div class="field"><label>Type of Business <span>*</span></label><div class="options-grid" id="bizType"><div class="option-item radio" onclick="selR(this,'bizType')"><input type="radio"><div class="option-check"></div><span class="option-label">Retail Shop</span></div><div class="option-item radio" onclick="selR(this,'bizType')"><input type="radio"><div class="option-check"></div><span class="option-label">Startup</span></div><div class="option-item radio" onclick="selR(this,'bizType')"><input type="radio"><div class="option-check"></div><span class="option-label">Established Brand</span></div><div class="option-item radio" onclick="selR(this,'bizType')"><input type="radio"><div class="option-check"></div><span class="option-label">Influencer / Creator</span></div><div class="option-item radio" onclick="selR(this,'bizType')"><input type="radio"><div class="option-check"></div><span class="option-label">Other</span></div></div><span class="err-msg" id="bizType-err" style="display:none">Please select your business type</span></div></div><div class="field-group full"><div class="field"><label>How long in business?</label><div class="options-grid" id="bizAge"><div class="option-item radio" onclick="selR(this,'bizAge')"><input type="radio"><div class="option-check"></div><span class="option-label">Less than 1 year</span></div><div class="option-item radio" onclick="selR(this,'bizAge')"><input type="radio"><div class="option-check"></div><span class="option-label">1-3 years</span></div><div class="option-item radio" onclick="selR(this,'bizAge')"><input type="radio"><div class="option-check"></div><span class="option-label">3+ years</span></div></div></div></div><div class="field-group full"><div class="field"><label>Current Online Presence</label><div class="options-grid" id="online"><div class="option-item radio" onclick="selR(this,'online')"><input type="radio"><div class="option-check"></div><span class="option-label">Yes - Website</span></div><div class="option-item radio" onclick="selR(this,'online')"><input type="radio"><div class="option-check"></div><span class="option-label">Social Media Only</span></div><div class="option-item radio" onclick="selR(this,'online')"><input type="radio"><div class="option-check"></div><span class="option-label">No - Starting Fresh</span></div></div></div></div><div class="form-nav"><button class="btn-back" onclick="fPrev(2)">&#8592; Back</button><span class="step-counter">Step 2 of 5</span><button class="btn-next" onclick="fNext(2)">Continue <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
+    <div class="form-section" id="sec3"><div class="fsec-header"><div class="fsec-num">03</div><h2 class="fsec-title">Services &amp; <em>Goals</em></h2><p class="fsec-desc">What do you need most? Select all that apply.</p></div><div class="field-group full"><div class="field"><label>Services Interested In <span>*</span></label><div class="options-grid" id="fservices"><div class="option-item" onclick="togC(this)"><input type="checkbox"><div class="option-check"></div><span class="option-label">Brand Identity</span></div><div class="option-item" onclick="togC(this)"><input type="checkbox"><div class="option-check"></div><span class="option-label">Online Store Setup</span></div><div class="option-item" onclick="togC(this)"><input type="checkbox"><div class="option-check"></div><span class="option-label">Social Media Marketing</span></div><div class="option-item" onclick="togC(this)"><input type="checkbox"><div class="option-check"></div><span class="option-label">Influencer Collaboration</span></div><div class="option-item" onclick="togC(this)"><input type="checkbox"><div class="option-check"></div><span class="option-label">Growth Strategy</span></div><div class="option-item" onclick="togC(this)"><input type="checkbox"><div class="option-check"></div><span class="option-label">Content Creation</span></div><div class="option-item" onclick="togC(this)"><input type="checkbox"><div class="option-check"></div><span class="option-label">Not sure yet</span></div></div><span class="err-msg" id="fsvc-err" style="display:none">Please select at least one service</span></div></div><div class="field-group full"><div class="field"><label>Biggest Challenge Right Now</label><textarea id="fchallenge" placeholder="e.g. No online presence, not getting enough customers..."></textarea></div></div><div class="field-group full"><div class="field"><label>Success in 6 months looks like?</label><textarea id="fsuccess" placeholder="e.g. 10,000 Instagram followers, strong brand identity..."></textarea></div></div><div class="form-nav"><button class="btn-back" onclick="fPrev(3)">&#8592; Back</button><span class="step-counter">Step 3 of 5</span><button class="btn-next" onclick="fNext(3)">Continue <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
     <div class="form-section" id="sec4"><div class="fsec-header"><div class="fsec-num">04</div><h2 class="fsec-title">Budget &amp; <em>Timeline</em></h2><p class="fsec-desc">This helps us tailor the right plan for you — no commitment required.</p></div><div class="field-group full"><div class="field"><label>Monthly Marketing Budget</label><div class="options-grid" id="budget"><div class="option-item radio" onclick="selR(this,'budget')"><input type="radio"><div class="option-check"></div><span class="option-label">Under Rs 5,000</span></div><div class="option-item radio" onclick="selR(this,'budget')"><input type="radio"><div class="option-check"></div><span class="option-label">Rs 5,000-15,000</span></div><div class="option-item radio" onclick="selR(this,'budget')"><input type="radio"><div class="option-check"></div><span class="option-label">Rs 15,000-50,000</span></div><div class="option-item radio" onclick="selR(this,'budget')"><input type="radio"><div class="option-check"></div><span class="option-label">Rs 50,000+</span></div><div class="option-item radio" onclick="selR(this,'budget')"><input type="radio"><div class="option-check"></div><span class="option-label">Let's discuss</span></div></div></div></div><div class="field-group full"><div class="field"><label>When looking to start?</label><div class="options-grid" id="timeline"><div class="option-item radio" onclick="selR(this,'timeline')"><input type="radio"><div class="option-check"></div><span class="option-label">Immediately</span></div><div class="option-item radio" onclick="selR(this,'timeline')"><input type="radio"><div class="option-check"></div><span class="option-label">Within 1 month</span></div><div class="option-item radio" onclick="selR(this,'timeline')"><input type="radio"><div class="option-check"></div><span class="option-label">In 2-3 months</span></div><div class="option-item radio" onclick="selR(this,'timeline')"><input type="radio"><div class="option-check"></div><span class="option-label">Just exploring</span></div></div></div></div><div class="form-nav"><button class="btn-back" onclick="fPrev(4)">&#8592; Back</button><span class="step-counter">Step 4 of 5</span><button class="btn-next" onclick="fNext(4)">Continue <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
     <div class="form-section" id="sec5"><div class="fsec-header"><div class="fsec-num">05</div><h2 class="fsec-title">Almost <em>There!</em></h2><p class="fsec-desc">Just a couple more things before we connect.</p></div><div class="field-group full"><div class="field"><label>How did you hear about us?</label><div class="options-grid" id="referral"><div class="option-item radio" onclick="selR(this,'referral')"><input type="radio"><div class="option-check"></div><span class="option-label">Instagram</span></div><div class="option-item radio" onclick="selR(this,'referral')"><input type="radio"><div class="option-check"></div><span class="option-label">Referral</span></div><div class="option-item radio" onclick="selR(this,'referral')"><input type="radio"><div class="option-check"></div><span class="option-label">Google Search</span></div><div class="option-item radio" onclick="selR(this,'referral')"><input type="radio"><div class="option-check"></div><span class="option-label">Walk-in / Offline</span></div><div class="option-item radio" onclick="selR(this,'referral')"><input type="radio"><div class="option-check"></div><span class="option-label">Other</span></div></div></div></div><div class="field-group full"><div class="field"><label>Anything else to share?</label><textarea id="fextra" placeholder="Any additional context, requirements, or questions..." style="min-height:130px"></textarea><span class="field-hint">Optional — the more you share, the better we can help.</span></div></div><div class="form-nav"><button class="btn-back" onclick="fPrev(5)">&#8592; Back</button><span class="step-counter">Step 5 of 5</span><button class="btn-next" style="background:var(--teal);border-color:var(--teal)" onclick="fSubmit()">Submit &#8594;</button></div></div>
     <div id="success-screen"><div class="success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><h2 class="success-title">We've got your<br><em>details!</em></h2><p class="success-sub">Thank you for reaching out to Universal Agencies. Our team will review your submission and get back to you within 24 hours on WhatsApp or email.</p><div class="success-detail">&#10022; Expect a call from us soon</div><br><br><button class="btn-primary" onclick="showPage('main')" style="margin:0 auto;display:inline-flex">&#8592; Back to Home</button></div>
@@ -504,31 +772,271 @@ textarea{resize:vertical;min-height:110px;line-height:1.7}
 <div id="page-admin" class="page admin-page">
   <div class="admin-header">
     <div class="admin-logo">Universal<span>Agencies</span></div>
-    <div class="admin-badge">&#9881; Admin Dashboard</div>
-    <button class="admin-btn admin-btn-outline" onclick="showPage('main')" style="margin-left:auto">&#8592; Back to Site</button>
+    <div style="display:flex;gap:.8rem;align-items:center;margin-left:auto">
+      <button class="admin-btn admin-btn-danger" onclick="doLogout()">Logout</button>
+    </div>
   </div>
   <div class="admin-body">
     <div class="admin-stats">
-      <div class="stat-card"><div class="stat-card-num" id="stat-total">0</div><div class="stat-card-label">Total Submissions</div><div class="stat-card-sub">All time</div></div>
-      <div class="stat-card"><div class="stat-card-num" id="stat-today">0</div><div class="stat-card-label">Today</div><div class="stat-card-sub" id="stat-date">-</div></div>
-      <div class="stat-card"><div class="stat-card-num" id="stat-top-service">-</div><div class="stat-card-label">Top Service</div><div class="stat-card-sub">Most requested</div></div>
-      <div class="stat-card"><div class="stat-card-num" id="stat-top-biz">-</div><div class="stat-card-label">Top Business Type</div><div class="stat-card-sub">Most common</div></div>
+  <div class="stat-card" style="position:relative">
+    <button class="stat-edit-btn" onclick="openStatEdit('partnerships')" title="Edit">✎</button>
+    <div class="stat-card-num" id="stat-partnerships">0</div>
+    <div class="stat-card-label">Active Partnerships</div>
+    <div class="stat-card-sub">Total clients</div>
+  </div>
+  <div class="stat-card" style="position:relative">
+    <button class="stat-edit-btn" onclick="openStatEdit('deliverables')" title="Edit">✎</button>
+    <div class="stat-card-num" id="stat-deliverables">0</div>
+    <div class="stat-card-label">Current Deliverables</div>
+    <div class="stat-card-sub">Reels this month</div>
+  </div>
+  <div class="stat-card" style="position:relative">
+    <button class="stat-edit-btn" onclick="openStatEdit('performance')" title="Edit">✎</button>
+    <div class="stat-card-num" id="stat-performance">+0%</div>
+    <div class="stat-card-label">Monthly Performance</div>
+    <div class="stat-card-sub">Avg follower growth</div>
+  </div>
+  <div class="stat-card" style="position:relative">
+    <button class="stat-edit-btn" onclick="openStatEdit('satisfaction')" title="Edit">✎</button>
+    <div class="stat-card-num" id="stat-satisfaction">5.0 ★</div>
+    <div class="stat-card-label">Client Satisfaction</div>
+    <div class="stat-card-sub">Overall rating</div>
+  </div>
+</div>
+
+<!-- STAT EDIT POPUP -->
+<div id="statEditPopup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9000;align-items:center;justify-content:center">
+  <div style="background:#1a1a1a;border:1px solid rgba(15,118,110,.3);border-radius:16px;padding:2rem;width:320px;position:relative">
+    <div style="font-family:var(--serif);font-size:1.3rem;color:var(--white);margin-bottom:1.2rem" id="statEditTitle">Edit Stat</div>
+    <input id="statEditInput" style="font-family:var(--sans);font-size:1rem;color:var(--white);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:.8rem 1rem;width:100%;outline:none;margin-bottom:1.2rem" placeholder="Enter value">
+    <div style="display:flex;gap:.8rem">
+      <button onclick="saveStatEdit()" style="flex:1;font-family:var(--sans);font-size:.82rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:.8rem;border-radius:8px;background:var(--teal);color:var(--white);border:none;cursor:pointer">Save</button>
+      <button onclick="closeStatEdit()" style="flex:1;font-family:var(--sans);font-size:.82rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:.8rem;border-radius:8px;background:transparent;color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.1);cursor:pointer">Cancel</button>
     </div>
+  </div>
+</div>
     <div class="admin-toolbar">
-      <h2>Client <em>Submissions</em></h2>
+      <h2>Client <em>Accounts</em></h2>
       <div class="admin-actions">
-        <button class="admin-btn admin-btn-outline" onclick="exportCSV()">&#8595; Export CSV</button>
-        <button class="admin-btn admin-btn-danger" onclick="clearAll()">&#128465; Clear All</button>
+<button class="admin-btn admin-btn-primary" onclick="openCdata('add')">&#43; Add Client Data</button>
+      <button class="admin-btn admin-btn-outline" onclick="openCdata('edit')">&#9998; Edit Client Data</button>      <button class="admin-btn admin-btn-outline" onclick="exportCSV()">&#8595; Export CSV</button>        <button class="admin-btn admin-btn-danger" onclick="clearAll()">&#128465; Clear All</button>
       </div>
     </div>
     <div class="entries-table">
-      <div class="table-head"><div class="th">Client</div><div class="th">Contact</div><div class="th">Business Type</div><div class="th">Services</div><div class="th">Budget</div><div class="th">Action</div></div>
-      <div id="entries-list"></div>
+     <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr 1fr 1fr 1fr 80px;gap:0;padding:.9rem 1.5rem;background:#111;border-bottom:1px solid rgba(255,255,255,.06)">
+  <div class="th">Client</div>
+  <div class="th">Package</div>
+  <div class="th">Price</div>
+  <div class="th">Balance</div>
+  <div class="th">Reels</div>
+  <div class="th">Followers</div>
+  <div class="th">Goal</div>
+  <div class="th">Action</div>
+</div>
+<div id="client-accounts-list"></div>
+    </div>
+  </div>
+
+ 
+</div>
+
+<!-- ═══════════════ USER DASHBOARD ═══════════════ -->
+<div id="page-user" class="page user-page">
+  <div class="user-header">
+    <div class="user-header-logo">Universal<span>Agencies</span></div>
+    <div class="user-header-right">
+      <span class="user-welcome">Welcome, <strong id="userNameDisplay">Client</strong></span>
+      <button class="admin-btn admin-btn-danger" style="min-height:36px" onclick="doLogout()">Logout</button>
+    </div>
+  </div>
+  <div class="user-body">
+    <div class="user-banner">
+      <div class="user-banner-eyebrow">Client Portal</div>
+      <h2>Your Brand Journey<br>with <em>Universal Agencies</em></h2>
+      <p>Stay updated on your projects, explore our service packages, and track your campaign progress — all in one place.</p>
+    </div>
+<div class="user-grid">
+
+      <!-- LEFT COLUMN -->
+      <div style="display:flex;flex-direction:column;gap:1.2rem">
+
+        <!-- 4 STAT CARDS -->
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem">
+
+          <!-- Current Package -->
+          <div class="user-card">
+            <div class="user-card-header">
+              <div class="user-card-title">Current <em>Package</em></div>
+              <div class="user-card-tag">Active</div>
+            </div>
+            <div class="user-card-body">
+             <div id="ud-package-name" style="font-family:var(--serif);font-size:2rem;font-weight:400;color:var(--teal);margin-bottom:.3rem">Growth Essentials</div>
+              <div id="ud-package-desc" style="font-size:.78rem;color:var(--gray);font-weight:300">Social media management · 3 posts/week</div>
+              <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(232,221,212,.7);display:flex;justify-content:space-between;align-items:center">
+                <span id="ud-billing" style="font-size:.7rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--gray)">Monthly</span>
+                <span id="ud-package-price" style="font-family:var(--serif);font-size:1.3rem;color:var(--black)">Rs 8,000</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Balance Remaining -->
+          <div class="user-card">
+            <div class="user-card-header">
+              <div class="user-card-title">Balance <em>Remaining</em></div>
+              <div class="user-card-tag">This Month</div>
+            </div>
+            <div class="user-card-body">
+              <div id="ud-balance" style="font-family:var(--serif);font-size:2.4rem;font-weight:300;color:var(--black);line-height:1;margin-bottom:.3rem">Rs 3,200</div>
+              <div id="ud-balance-sub" style="font-size:.78rem;color:var(--gray);font-weight:300;margin-bottom:1rem">of Rs 8,000 remaining</div>
+              <div style="background:rgba(232,221,212,.5);border-radius:100px;height:6px;overflow:hidden">
+                <div id="ud-balance-bar" style="width:40%;height:100%;background:var(--teal);border-radius:100px"></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;margin-top:.5rem">
+                <span id="ud-balance-pct" style="font-size:.68rem;color:var(--teal);font-weight:500">40% remaining</span>
+                <span id="ud-renewal" style="font-size:.68rem;color:var(--gray);font-weight:300">Renews Jun 1</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reels Uploaded -->
+          <div class="user-card">
+            <div class="user-card-header">
+              <div class="user-card-title">Reels <em>Uploaded</em></div>
+              <div class="user-card-tag">This Month</div>
+            </div>
+            <div class="user-card-body">
+              <div style="display:flex;align-items:flex-end;gap:.6rem;margin-bottom:.8rem">
+               <div id="ud-reels-done" style="font-family:var(--serif);font-size:2.8rem;font-weight:300;color:var(--black);line-height:1">8</div>
+                <div id="ud-reels-planned" style="font-size:.82rem;color:var(--gray);font-weight:300;padding-bottom:.4rem">/ 12 planned</div>
+              </div>
+              <div id="ud-reels-bars" style="display:flex;gap:.4rem;margin-bottom:.6rem">
+                <div style="flex:1;height:28px;border-radius:4px;background:var(--teal)"></div>
+                <div style="flex:1;height:28px;border-radius:4px;background:var(--teal)"></div>
+                <div style="flex:1;height:28px;border-radius:4px;background:var(--teal)"></div>
+                <div style="flex:1;height:28px;border-radius:4px;background:var(--teal)"></div>
+                <div style="flex:1;height:28px;border-radius:4px;background:var(--teal)"></div>
+                <div style="flex:1;height:28px;border-radius:4px;background:var(--teal)"></div>
+                <div style="flex:1;height:28px;border-radius:4px;background:var(--teal)"></div>
+                <div style="flex:1;height:28px;border-radius:4px;background:var(--teal)"></div>
+                <div style="flex:1;height:28px;border-radius:4px;background:rgba(232,221,212,.8)"></div>
+                <div style="flex:1;height:28px;border-radius:4px;background:rgba(232,221,212,.8)"></div>
+                <div style="flex:1;height:28px;border-radius:4px;background:rgba(232,221,212,.8)"></div>
+                <div style="flex:1;height:28px;border-radius:4px;background:rgba(232,221,212,.8)"></div>
+              </div>
+<div id="ud-reels-remaining" style="font-size:.72rem;color:var(--gray);font-weight:300">4 reels remaining this month</div>            </div>
+          </div>
+
+          <!-- Page Progress -->
+          <div class="user-card">
+            <div class="user-card-header">
+              <div class="user-card-title">Page <em>Progress</em></div>
+              <div class="user-card-tag">Instagram</div>
+            </div>
+            <div class="user-card-body">
+              <div id="ud-followers" style="font-family:var(--serif);font-size:2.4rem;font-weight:300;color:var(--black);line-height:1;margin-bottom:.2rem">4,820</div>
+              <div id="ud-goal" style="font-size:.78rem;color:var(--gray);font-weight:300;margin-bottom:1rem">followers · Goal: 10,000</div>
+              <div style="background:rgba(232,221,212,.5);border-radius:100px;height:6px;overflow:hidden">
+                <div id="ud-progress-bar" style="width:48%;height:100%;background:linear-gradient(90deg,var(--teal),#43e97b);border-radius:100px"></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;margin-top:.5rem">
+                <span id="ud-progress-pct" style="font-size:.68rem;color:var(--teal);font-weight:500">48% to goal</span>
+                <span id="ud-growth" style="font-size:.68rem;color:var(--gray);font-weight:300">+312 this month</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RECENT UPDATES -->
+        <div class="user-card">
+          <div class="user-card-header">
+            <div class="user-card-title">Recent <em>Updates</em></div>
+            <div class="user-card-tag">Latest Activity</div>
+          </div>
+          <div class="user-card-body">
+            <div class="update-list">
+              <div class="update-item">
+                <div class="update-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div class="update-text"><strong>New service launch:</strong> WhatsApp broadcast campaign management now available for all retainer clients.</div>
+              </div>
+              <div class="update-item">
+                <div class="update-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                <div class="update-text"><strong>Platform update:</strong> Instagram Reels strategy now included in all Social Media Marketing packages at no extra cost.</div>
+              </div>
+              <div class="update-item">
+                <div class="update-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+                <div class="update-text"><strong>Team expansion:</strong> We've onboarded 3 new creative strategists to serve our growing client base across Maharashtra.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div style="display:flex;flex-direction:column;gap:1.2rem;position:sticky;top:2rem">
+
+        <div class="announce-card">
+          <div class="announce-eyebrow">Announcement</div>
+          <div class="announce-title" id="ud-ann-title">Summer <em>Campaign Season</em></div>
+          <div class="announce-body" id="ud-ann-body">Planning your Q3 campaigns? Book a strategy call now to lock in preferred slots. Influencer inventory fills up fast in June-July. Early clients receive priority scheduling and 10% off first campaign.</div>
+        </div>
+
+        <div class="user-card">
+          <div class="user-card-header">
+            <div class="user-card-title">Contact <em>Info</em></div>
+          </div>
+          <div class="user-card-body">
+            <div class="cinfo-list">
+              <div class="cinfo-row"><span class="cinfo-label">Phone</span><span class="cinfo-value">+91 75584 89440</span></div>
+              <div class="cinfo-row"><span class="cinfo-label">Email</span><span class="cinfo-value">hello@universalagencies.co</span></div>
+              <div class="cinfo-row"><span class="cinfo-label">Hours</span><span class="cinfo-value">Mon–Sat, 10am–7pm</span></div>
+              <div class="cinfo-row"><span class="cinfo-label">Location</span><span class="cinfo-value">Nagpur, Maharashtra</span></div>
+            </div>
+            <button class="btn-teal" style="width:100%;margin-top:1.2rem;border-radius:8px" onclick="showPhone()">&#128222; Schedule a Call</button>
+          </div>
+        </div>
+
+        <div class="user-card">
+          <div class="user-card-header">
+            <div class="user-card-title">New <em>Enquiry</em></div>
+          </div>
+          <div class="user-card-body">
+            <p style="font-size:.82rem;color:var(--gray);font-weight:300;line-height:1.7;margin-bottom:1rem">Want to start a new project or expand your current scope?</p>
+            <button class="btn-primary" style="width:100%;justify-content:center;border-radius:8px" onclick="showPage('form')">Start a Project &#8594;</button>
+          </div>
+        </div>
+
+      </div>
+
     </div>
   </div>
 </div>
 
 <script>
+
+  /* ── FIREBASE INIT ── */
+const firebaseConfig = {
+  apiKey: "AIzaSyAG4C_7C3Cf5D6mMr5uglIbv0QOiHQ2tkU",
+  authDomain: "universal-data-51e16.firebaseapp.com",
+  projectId: "universal-data-51e16",
+  storageBucket: "universal-data-51e16.firebasestorage.app",
+  messagingSenderId: "457199531649",
+  appId: "1:457199531649:web:20225a2d7d5beccd603f80"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+/* ── CREDENTIALS ── */
+const CREDENTIALS = {
+  admin: { username: 'admin', password: 'admin@123', role: 'admin', displayName: 'Admin' },
+  users: [
+    { username: 'client1', password: 'client@123', role: 'user', displayName: 'Rahul Sharma' },
+    { username: 'demo', password: 'demo@123', role: 'user', displayName: 'Demo User' }
+  ]
+};
+
 /* ── CURSOR ── */
 const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
 let mx=0,my=0,rx=0,ry=0;
@@ -536,21 +1044,161 @@ document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.le
 (function anim(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim);})();
 
 /* ── NAV SCROLL ── */
-const nav=document.getElementById('nav');
-window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
+const navEl=document.getElementById('nav');
+window.addEventListener('scroll',()=>navEl.classList.toggle('scrolled',window.scrollY>60));
 
 /* ── SCROLL REVEAL ── */
 const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');ro.unobserve(x.target);}});},{threshold:0.12});
 document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 
+/* ── HAMBURGER ── */
+function toggleHB(){
+  const t=document.getElementById('hbTrigger'),d=document.getElementById('hbDrawer'),o=document.getElementById('hbOverlay');
+  t.classList.toggle('open');d.classList.toggle('open');o.classList.toggle('open');
+}
+function closeHB(){
+  document.getElementById('hbTrigger').classList.remove('open');
+  document.getElementById('hbDrawer').classList.remove('open');
+  document.getElementById('hbOverlay').classList.remove('open');
+}
+
+function updateHBSession(){
+  const sess=getSession();
+  const area=document.getElementById('hb-session-area');
+  const loginBtns=[document.getElementById('hb-user-login'),document.getElementById('hb-admin-login')];
+  const dashBtn=document.getElementById('hb-dashboard');
+  const logoutBtn=document.getElementById('hb-logout');
+  if(sess){
+    area.innerHTML=`<div class="hb-session-badge"><div class="hb-session-dot"></div><span class="hb-session-text">Logged in as ${sess.displayName}</span></div>`;
+    loginBtns.forEach(b=>b.style.display='none');
+    dashBtn.style.display='flex';
+    logoutBtn.style.display='flex';
+  } else {
+    area.innerHTML='';
+    loginBtns.forEach(b=>b.style.display='flex');
+    dashBtn.style.display='none';
+    logoutBtn.style.display='none';
+  }
+}
+
+function goToDashboard(){
+  const sess=getSession();
+  if(!sess)return;
+  if(sess.role==='admin') showPage('admin');
+  else showPage('user');
+}
+
+/* ── SESSION ── */
+function getSession(){return JSON.parse(localStorage.getItem('ua_session')||'null');}
+function setSession(data){localStorage.setItem('ua_session',JSON.stringify(data));}
+function clearSession(){localStorage.removeItem('ua_session');}
+
+/* ── AUTH MODAL ── */
+let authType='admin';
+function openAuth(type){
+  authType=type;
+  const modal=document.getElementById('authModal');
+  const title=document.getElementById('authTitle');
+  const sub=document.getElementById('authSub');
+  const sw=document.getElementById('authSwitch');
+  const icon=document.getElementById('authIcon');
+  document.getElementById('authError').classList.remove('show');
+  document.getElementById('authUser').value='';
+  document.getElementById('authPass').value='';
+  if(type==='admin'){
+    title.innerHTML='Admin <em>Login</em>';
+    sub.textContent='Enter your admin credentials to access the dashboard';
+    sw.innerHTML='Not an admin? <a onclick="closeAuth();openAuth(\'user\')">Client Login</a>';
+    icon.innerHTML='<rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>';
+  } else {
+    title.innerHTML='Client <em>Login</em>';
+    sub.textContent='Enter your credentials to access your client portal';
+    sw.innerHTML='Are you an admin? <a onclick="closeAuth();openAuth(\'admin\')">Admin Login</a>';
+    icon.innerHTML='<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>';
+  }
+  modal.classList.add('open');
+  setTimeout(()=>document.getElementById('authUser').focus(),100);
+}
+function closeAuth(){document.getElementById('authModal').classList.remove('open');}
+document.getElementById('authModal').addEventListener('click',e=>{if(e.target===document.getElementById('authModal'))closeAuth();});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.getElementById('authModal').classList.contains('open'))doAuth();});
+
+async function doAuth(){
+  const u=document.getElementById('authUser').value.trim();
+  const p=document.getElementById('authPass').value;
+  const err=document.getElementById('authError');
+  err.classList.remove('show');
+  let match=null;
+  if(authType==='admin'){
+    if(u===CREDENTIALS.admin.username&&p===CREDENTIALS.admin.password) match=CREDENTIALS.admin;
+ } else {
+    /* check hardcoded users first, then dynamically added clients */
+    match = CREDENTIALS.users.find(x=>x.username===u&&x.password===p) || null;
+    if(!match){
+      try {
+  const snap = await db.collection('clients').doc(u).get();
+  if(snap.exists){
+    const cd = snap.data();
+    if(cd.password === p) match = cd;
+  }
+} catch(e){
+  const dynamicClients = JSON.parse(localStorage.getItem('ua_clients') || '[]');
+  match = dynamicClients.find(x=>x.username===u&&x.password===p) || null;
+}
+    }
+  }
+  if(!match){err.classList.add('show');return;}
+
+  setSession(match);
+  closeAuth();
+  updateHBSession();
+  showLoginAnim(match.role, match.displayName);
+
+  /* fade out only if NOT on main page */
+  const activePage = document.querySelector('.page.active');
+  if(activePage && activePage.id !== 'page-main'){
+    activePage.classList.add('page-fade-out');
+  }
+
+  /* wait for fade + login anim, then switch page with fade in */
+  setTimeout(()=>{
+    if(match.role==='admin'){
+      showPage('admin');
+    } else {
+      document.getElementById('userNameDisplay').textContent=match.displayName;
+      showPage('user');
+    }
+    /* fade in the new page */
+    const newPage = document.querySelector('.page.active');
+    if(newPage){
+      newPage.classList.add('page-fade-in');
+      setTimeout(()=>newPage.classList.remove('page-fade-in'), 650);
+    }
+    /* clean up fade-out class */
+    if(activePage) activePage.classList.remove('page-fade-out');
+  }, 900);
+}
+
+function doLogout(){
+  clearSession();
+  updateHBSession();
+  showPage('main');
+}
+
 /* ── PAGE NAVIGATION ── */
 function showPage(id){
+  const sess=getSession();
+  if(id==='admin'&&(!sess||sess.role!=='admin')){openAuth('admin');return;}
+  if(id==='user'&&(!sess||sess.role!=='user')){openAuth('user');return;}
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
   if(id==='form') resetForm();
   if(id==='admin') loadAdmin();
-}
+if(id==='user'&&sess){
+    document.getElementById('userNameDisplay').textContent=sess.displayName;
+    loadClientData();
+  }}
 
 /* ── PHONE ── */
 function showPhone(){
@@ -590,15 +1238,10 @@ function fNext(s){if(!fVal(s))return;fCur=s+1;fShow(fCur);}
 function fPrev(s){fCur=s-1;fShow(fCur);}
 function selR(el,gid){document.querySelectorAll('#'+gid+' .option-item').forEach(i=>i.classList.remove('selected'));el.classList.add('selected');}
 function togC(el){el.classList.toggle('selected');}
+function getSelected(gridId){return Array.from(document.querySelectorAll('#'+gridId+' .option-item.selected')).map(el=>el.querySelector('.option-label').textContent).join(', ');}
 
-function getSelected(gridId){
-  return Array.from(document.querySelectorAll('#'+gridId+' .option-item.selected')).map(el=>el.querySelector('.option-label').textContent).join(', ');
-}
-
-function fSubmit(){
-  /* Collect all form data */
-  const entry={
-    id: Date.now(),
+async function fSubmit(){
+  const entry = {
     submittedAt: new Date().toISOString(),
     name: document.getElementById('fname').value.trim(),
     email: document.getElementById('femail').value.trim(),
@@ -614,19 +1257,22 @@ function fSubmit(){
     budget: getSelected('budget'),
     timeline: getSelected('timeline'),
     referral: getSelected('referral'),
-    extra: document.getElementById('fextra').value.trim(),
-    status: 'new'
+    extra: document.getElementById('fextra').value.trim()
   };
 
-  /* Save to localStorage */
-  const existing = JSON.parse(localStorage.getItem('ua_submissions') || '[]');
-  existing.unshift(entry);
-  localStorage.setItem('ua_submissions', JSON.stringify(existing));
+  /* Save to Firebase */
+  try {
+    await db.collection('submissions').add(entry);
+    console.log('✅ Saved to Firebase!');
+  } catch(err){
+    console.log('Firebase error:', err);
+  }
 
-  /* Show success screen */
+  /* Show success */
   document.querySelectorAll('.form-section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.prog-step').forEach(s=>{s.classList.remove('active');s.classList.add('done');});
-  const ss=document.getElementById('success-screen');ss.style.display='block';ss.classList.add('active');
+  const ss=document.getElementById('success-screen');
+  ss.style.display='block';ss.classList.add('active');
 }
 
 function resetForm(){
@@ -641,59 +1287,110 @@ function resetForm(){
 }
 
 /* ── ADMIN DASHBOARD ── */
-function loadAdmin(){
-  const entries = JSON.parse(localStorage.getItem('ua_submissions') || '[]');
-  const today = new Date().toDateString();
-
-  /* Stats */
-  document.getElementById('stat-total').textContent = entries.length;
-  document.getElementById('stat-today').textContent = entries.filter(e=>new Date(e.submittedAt).toDateString()===today).length;
-  document.getElementById('stat-date').textContent = new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
-
-  /* Top service */
-  const svcCount = {};
-  entries.forEach(e=>{if(e.services)e.services.split(', ').forEach(s=>{svcCount[s]=(svcCount[s]||0)+1;});});
-  const topSvc = Object.entries(svcCount).sort((a,b)=>b[1]-a[1])[0];
-  document.getElementById('stat-top-service').textContent = topSvc ? topSvc[0].split(' ')[0] : '-';
-
-  /* Top biz type */
-  const bizCount = {};
-  entries.forEach(e=>{if(e.bizType)bizCount[e.bizType]=(bizCount[e.bizType]||0)+1;});
-  const topBiz = Object.entries(bizCount).sort((a,b)=>b[1]-a[1])[0];
-  document.getElementById('stat-top-biz').textContent = topBiz ? topBiz[0].split(' ')[0] : '-';
-
-  /* Table */
-  const list = document.getElementById('entries-list');
-  if(!entries.length){
-    list.innerHTML = '<div class="empty-state"><div class="empty-icon">&#128203;</div><p>No submissions yet. They will appear here once clients fill the form.</p></div>';
-    return;
+async function loadAdmin(){
+  /* Load clients */
+  let clients = [];
+  try {
+    const snapshot = await db.collection('clients').get();
+    snapshot.forEach(doc => clients.push(doc.data()));
+  } catch(e){
+    clients = JSON.parse(localStorage.getItem('ua_clients') || '[]');
   }
-  list.innerHTML = entries.map((e,i)=>`
-    <div class="entry-row" onclick="openModal(${i})">
-      <div class="td td-name">
-        <span>${e.name || '-'}</span>
-        <span class="td-email">${e.company || ''}</span>
-      </div>
-      <div class="td">
-        <div>
-          <div>${e.phone || '-'}</div>
-          <div class="td-email">${e.email || '-'}</div>
-        </div>
-      </div>
-      <div class="td">${e.bizType || '-'}</div>
-      <div class="td" style="font-size:.75rem">${e.services ? e.services.split(', ').slice(0,2).join(', ')+(e.services.split(', ').length>2?'...':'') : '-'}</div>
-      <div class="td">${e.budget ? e.budget.replace('Rs ','').replace('Let\'s discuss','Flexible') : '-'}</div>
-      <div class="td"><button class="del-btn" onclick="event.stopPropagation();delEntry(${i})" title="Delete">&#128465;</button></div>
-    </div>
-  `).join('');
+
+  /* Load saved stat values first */
+  await loadAdminStats();
+
+  /* Auto-calculate Active Partnerships from real client count */
+  document.getElementById('stat-partnerships').textContent = clients.length;
+
+  loadClientAccountsTable();
+}
+
+async function loadClientAccountsTable(){
+  const list = document.getElementById('client-accounts-list');
+  if(!list) return;
+  list.innerHTML = '<div class="empty-state"><div class="empty-icon">⏳</div><p>Loading clients...</p></div>';
+
+  try {
+    const snapshot = await db.collection('clients').get();
+    const clients = [];
+    snapshot.forEach(doc => clients.push(doc.data()));
+
+    if(!clients.length){
+      list.innerHTML = '<div class="empty-state"><div class="empty-icon">👤</div><p>No clients yet. Click "+ Add Client" to create one.</p></div>';
+      return;
+    }
+
+    const rows = await Promise.all(clients.map(async c => {
+      let data = {};
+      try {
+        const snap = await db.collection('clientData').doc(c.username).get();
+        if(snap.exists) data = snap.data();
+      } catch(e){}
+
+      return `
+        <div class="entry-row" style="display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr 1fr 1fr 1fr 80px">
+          <div class="td td-name">
+            <span>${c.displayName}</span>
+            <span class="td-email">@${c.username}</span>
+          </div>
+          <div class="td">${data.package||'-'}</div>
+          <div class="td">${data.price||'-'}</div>
+          <div class="td">${data.balance?'Rs '+Number(data.balance).toLocaleString('en-IN'):'-'}</div>
+          <div class="td">${data.reelsDone&&data.reelsTotal?data.reelsDone+'/'+data.reelsTotal:'-'}</div>
+          <div class="td">${data.followers?Number(data.followers).toLocaleString('en-IN'):'-'}</div>
+          <div class="td">${data.goal?Number(data.goal).toLocaleString('en-IN'):'-'}</div>
+          <div class="td">
+            <button class="del-btn" onclick="deleteClient('${c.username}')">🗑️</button>
+          </div>
+        </div>`;
+    }));
+
+    list.innerHTML = rows.join('');
+
+  } catch(err){
+    console.log('Firebase error:', err);
+    list.innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><p>Could not load clients.</p></div>';
+  }
+}
+
+async function deleteClient(username){
+  if(!confirm('Delete this client? They will no longer be able to login.')) return;
+  await db.collection('clients').doc(username).delete();
+  await db.collection('clientData').doc(username).delete();
+  loadClientAccountsTable();
+}
+
+function clearAllClients(){
+  if(!confirm('Delete ALL client accounts? This cannot be undone.')) return;
+  const clients = JSON.parse(localStorage.getItem('ua_clients') || '[]');
+  clients.forEach(c => localStorage.removeItem('ua_client_data_'+c.username));
+  localStorage.removeItem('ua_clients');
+  loadClientAccountsTable();
+}
+
+function exportClientCSV(){
+  const clients = JSON.parse(localStorage.getItem('ua_clients') || '[]');
+  if(!clients.length){ alert('No client accounts to export.'); return; }
+  const headers = ['Name','Username','Package','Price','Balance','Total','Reels Done','Reels Total','Followers','Goal','Growth','Renewal'];
+  const rows = clients.map(c => {
+    const d = JSON.parse(localStorage.getItem('ua_client_data_'+c.username) || '{}');
+    return [c.displayName,c.username,d.package,d.price,d.balance,d.total,
+            d.reelsDone,d.reelsTotal,d.followers,d.goal,d.growth,d.renewal]
+      .map(v=>'"'+(v||'').toString().replace(/"/g,'""')+'"').join(',');
+  });
+  const csv=[headers.join(','),...rows].join('\n');
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='ua_clients_'+Date.now()+'.csv';
+  a.click();
 }
 
 function openModal(idx){
-  const entries = JSON.parse(localStorage.getItem('ua_submissions') || '[]');
-  const e = entries[idx];
-  if(!e) return;
-  document.getElementById('modalTitle').textContent = e.name + (e.company ? ' — '+e.company : '');
-  document.getElementById('modalBody').innerHTML = `
+  const entries=JSON.parse(localStorage.getItem('ua_submissions')||'[]');
+  const e=entries[idx];if(!e)return;
+  document.getElementById('modalTitle').textContent=e.name+(e.company?' — '+e.company:'');
+  document.getElementById('modalBody').innerHTML=`
     <div class="modal-grid">
       <div class="modal-field"><div class="modal-label">Email</div><div class="modal-value">${e.email||'-'}</div></div>
       <div class="modal-field"><div class="modal-label">Phone / WhatsApp</div><div class="modal-value">${e.phone||'-'}</div></div>
@@ -727,13 +1424,11 @@ function delEntry(idx){
   localStorage.setItem('ua_submissions',JSON.stringify(entries));
   loadAdmin();
 }
-
 function clearAll(){
   if(!confirm('Delete ALL submissions? This cannot be undone.'))return;
   localStorage.removeItem('ua_submissions');
   loadAdmin();
 }
-
 function exportCSV(){
   const entries=JSON.parse(localStorage.getItem('ua_submissions')||'[]');
   if(!entries.length){alert('No submissions to export.');return;}
@@ -742,6 +1437,416 @@ function exportCSV(){
   const csv=[headers.join(','),...rows].join('\n');
   const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download='ua_submissions_'+Date.now()+'.csv';a.click();
 }
+
+/* ── INIT ── */
+updateHBSession();
+
+function showLoginAnim(role, name){
+  const flash = document.getElementById('loginFlash');
+  const icon = document.getElementById('lfIcon');
+  const roleEl = document.getElementById('lfRole');
+  const nameEl = document.getElementById('lfName');
+
+  if(role === 'admin'){
+    icon.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>';
+    roleEl.textContent = 'Admin Access Granted';
+  } else {
+    icon.innerHTML = '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>';
+    roleEl.textContent = 'Client Portal';
+  }
+  nameEl.textContent = name;
+
+  flash.classList.remove('show');
+  void flash.offsetWidth; // force reflow so animation replays
+  flash.classList.add('show');
+  setTimeout(() => flash.classList.remove('show'), 5000);
+}
+
+/* ── CLIENT DATA ADMIN ── */
+async function openCdata(mode){
+  document.getElementById('cdataSuccess').classList.remove('show');
+  clearCdataFields();
+
+  const title = document.getElementById('cdata-modal-title');
+  const area = document.getElementById('cd-client-area');
+ const snapshot = await db.collection('clients').get();
+const clients = [];
+snapshot.forEach(doc => clients.push(doc.data()));
+
+  if(mode === 'edit'){
+    title.innerHTML = 'Edit Client <em>Data</em>';
+    if(!clients.length){
+      area.innerHTML = `<div style="font-size:.8rem;color:rgba(255,255,255,.3);padding:.8rem 0">No clients added yet.</div>`;
+    } else {
+      area.innerHTML = `
+        <div class="cdata-field">
+          <label class="cdata-label">Select Client</label>
+          <select class="cdata-input" id="cd-client" onchange="loadExistingCdata()">
+            <option value="">-- Choose a client --</option>
+            ${clients.map(c=>`<option value="${c.username}">${c.displayName} (${c.username})</option>`).join('')}
+          </select>
+        </div>`;
+    }
+  } else {
+    title.innerHTML = 'Add New <em>Client</em>';
+    area.innerHTML = `
+      <div class="cdata-section">New Client Login</div>
+      <div class="cdata-row">
+        <div class="cdata-field">
+          <label class="cdata-label">Client Full Name <span style="color:var(--teal)">*</span></label>
+          <input class="cdata-input" id="cd-display-name" placeholder="e.g. Rahul Sharma">
+        </div>
+        <div class="cdata-field">
+          <label class="cdata-label">Username <span style="color:var(--teal)">*</span></label>
+          <input class="cdata-input" id="cd-username" placeholder="e.g. rahul123">
+        </div>
+      </div>
+      <div class="cdata-field">
+        <label class="cdata-label">Password <span style="color:var(--teal)">*</span></label>
+        <input class="cdata-input" id="cd-password" type="password" placeholder="Set a login password">
+      </div>`;
+  }
+
+  document.getElementById('cdataModal').classList.add('open');
+}
+
+function closeCdata(){
+  document.getElementById('cdataModal').classList.remove('open');
+}
+
+function clearCdataFields(){
+  ['cd-package','cd-price','cd-desc','cd-billing','cd-renewal',
+   'cd-total','cd-balance','cd-reels-done','cd-reels-total',
+   'cd-followers','cd-goal','cd-growth','cd-ann-title','cd-ann-body'
+  ].forEach(id => document.getElementById(id).value = '');
+}
+
+function loadExistingCdata(){
+  const client = document.getElementById('cd-client').value;
+  if(!client){ clearCdataFields(); return; }
+  const saved = JSON.parse(localStorage.getItem('ua_client_data_'+client) || '{}');
+  document.getElementById('cd-package').value   = saved.package   || '';
+  document.getElementById('cd-price').value     = saved.price     || '';
+  document.getElementById('cd-desc').value      = saved.desc      || '';
+  document.getElementById('cd-billing').value   = saved.billing   || '';
+  document.getElementById('cd-renewal').value   = saved.renewal   || '';
+  document.getElementById('cd-total').value     = saved.total     || '';
+  document.getElementById('cd-balance').value   = saved.balance   || '';
+  document.getElementById('cd-reels-done').value  = saved.reelsDone  || '';
+  document.getElementById('cd-reels-total').value = saved.reelsTotal || '';
+  document.getElementById('cd-followers').value = saved.followers || '';
+  document.getElementById('cd-goal').value      = saved.goal      || '';
+  document.getElementById('cd-growth').value    = saved.growth    || '';
+  document.getElementById('cd-ann-title').value = saved.annTitle  || '';
+  document.getElementById('cd-ann-body').value  = saved.annBody   || '';
+}
+
+async function saveCdata(){
+  const title = document.getElementById('cdata-modal-title').textContent;
+  const isAdd = title.includes('Add');
+  let username = '';
+
+  if(isAdd){
+    const displayName = document.getElementById('cd-display-name')?.value.trim();
+    username = document.getElementById('cd-username')?.value.trim();
+    const password = document.getElementById('cd-password')?.value.trim();
+
+    if(!displayName || !username || !password){
+      alert('Please fill in all fields.');
+      return;
+    }
+
+    /* Check if username exists */
+    const existing = await db.collection('clients').doc(username).get();
+    if(existing.exists){
+      alert('Username already exists. Choose a different one.');
+      return;
+    }
+
+    /* Save new client to Firebase */
+    await db.collection('clients').doc(username).set({
+      username, password, displayName, role: 'user',
+      createdAt: new Date().toISOString()
+    });
+
+  } else {
+    username = document.getElementById('cd-client')?.value;
+    if(!username){ alert('Please select a client.'); return; }
+  }
+
+  /* Save dashboard data */
+  const data = {
+    package:    document.getElementById('cd-package').value.trim(),
+    price:      document.getElementById('cd-price').value.trim(),
+    desc:       document.getElementById('cd-desc').value.trim(),
+    billing:    document.getElementById('cd-billing').value.trim(),
+    renewal:    document.getElementById('cd-renewal').value.trim(),
+    total:      document.getElementById('cd-total').value.trim(),
+    balance:    document.getElementById('cd-balance').value.trim(),
+    reelsDone:  document.getElementById('cd-reels-done').value.trim(),
+    reelsTotal: document.getElementById('cd-reels-total').value.trim(),
+    followers:  document.getElementById('cd-followers').value.trim(),
+    goal:       document.getElementById('cd-goal').value.trim(),
+    growth:     document.getElementById('cd-growth').value.trim(),
+    annTitle:   document.getElementById('cd-ann-title').value.trim(),
+    annBody:    document.getElementById('cd-ann-body').value.trim(),
+    updatedAt:  new Date().toISOString()
+  };
+
+  await db.collection('clientData').doc(username).set(data);
+
+  loadClientAccountsTable();
+
+  /* Animate close */
+  const btn = document.querySelector('.cdata-submit');
+  btn.textContent = '✓ Saved!';
+  btn.style.background = '#0a5e57';
+  const modal = document.querySelector('.cdata-modal');
+  modal.style.transition = 'transform .4s, opacity .4s';
+  modal.style.transform = 'scale(.95) translateY(16px)';
+  modal.style.opacity = '0';
+  setTimeout(()=>{
+    document.getElementById('cdataModal').classList.remove('open');
+    modal.style.transform='';modal.style.opacity='';
+    btn.textContent='Save & Update Client Dashboard →';
+    btn.style.background='';
+  }, 600);
+}
+
+async function loadClientData(){
+  const sess = getSession();
+  if(!sess) return;
+
+  try {
+    const snap = await db.collection('clientData').doc(sess.username).get();
+    if(!snap.exists) return;
+    const data = snap.data();
+
+    if(data.package) document.getElementById('ud-package-name').textContent = data.package;
+    if(data.desc)    document.getElementById('ud-package-desc').textContent = data.desc;
+    if(data.price)   document.getElementById('ud-package-price').textContent = data.price;
+    if(data.billing) document.getElementById('ud-billing').textContent = data.billing;
+    if(data.balance) document.getElementById('ud-balance').textContent = 'Rs '+Number(data.balance).toLocaleString('en-IN');
+    if(data.total&&data.balance){
+      const pct=Math.round((data.balance/data.total)*100);
+      document.getElementById('ud-balance-sub').textContent='of Rs '+Number(data.total).toLocaleString('en-IN')+' remaining';
+      document.getElementById('ud-balance-bar').style.width=pct+'%';
+      document.getElementById('ud-balance-pct').textContent=pct+'% remaining';
+    }
+    if(data.renewal) document.getElementById('ud-renewal').textContent='Renews '+data.renewal;
+    if(data.reelsDone) document.getElementById('ud-reels-done').textContent=data.reelsDone;
+    if(data.reelsTotal) document.getElementById('ud-reels-planned').textContent='/ '+data.reelsTotal+' planned';
+    if(data.reelsDone&&data.reelsTotal){
+      const done=parseInt(data.reelsDone),total=parseInt(data.reelsTotal);
+      document.getElementById('ud-reels-remaining').textContent=(total-done)+' reels remaining this month';
+      const bars=document.getElementById('ud-reels-bars');bars.innerHTML='';
+      for(let i=0;i<total;i++){
+        const b=document.createElement('div');
+        b.style.cssText=`flex:1;height:28px;border-radius:4px;background:${i<done?'var(--teal)':'rgba(232,221,212,.8)'}`;
+        bars.appendChild(b);
+      }
+    }
+    if(data.followers) document.getElementById('ud-followers').textContent=Number(data.followers).toLocaleString('en-IN');
+    if(data.goal) document.getElementById('ud-goal').textContent='followers · Goal: '+Number(data.goal).toLocaleString('en-IN');
+    if(data.followers&&data.goal){
+      const pct=Math.round((data.followers/data.goal)*100);
+      document.getElementById('ud-progress-bar').style.width=pct+'%';
+      document.getElementById('ud-progress-pct').textContent=pct+'% to goal';
+    }
+    if(data.growth) document.getElementById('ud-growth').textContent=data.growth+' this month';
+    if(data.annTitle) document.getElementById('ud-ann-title').innerHTML=data.annTitle;
+    if(data.annBody) document.getElementById('ud-ann-body').textContent=data.annBody;
+
+  } catch(err){ console.log('Error loading client data:', err); }
+}
+
+/* ── STAT EDIT ── */
+let currentStatKey = '';
+
+const statMeta = {
+  partnerships: { label: 'Active Partnerships', placeholder: 'e.g. 12' },
+  deliverables:  { label: 'Current Deliverables', placeholder: 'e.g. 38' },
+  performance:   { label: 'Monthly Performance', placeholder: 'e.g. +28%' },
+  satisfaction:  { label: 'Client Satisfaction', placeholder: 'e.g. 5.0 ★' }
+};
+
+function openStatEdit(key){
+  currentStatKey = key;
+  const meta = statMeta[key];
+  document.getElementById('statEditTitle').textContent = 'Edit — ' + meta.label;
+  document.getElementById('statEditInput').placeholder = meta.placeholder;
+
+  /* Load current value */
+  const current = document.getElementById('stat-'+key).textContent;
+  document.getElementById('statEditInput').value = current;
+
+  const popup = document.getElementById('statEditPopup');
+  popup.style.display = 'flex';
+  setTimeout(()=>document.getElementById('statEditInput').focus(), 100);
+}
+
+function closeStatEdit(){
+  document.getElementById('statEditPopup').style.display = 'none';
+  currentStatKey = '';
+}
+
+async function saveStatEdit(){
+  const val = document.getElementById('statEditInput').value.trim();
+  if(!val){ alert('Please enter a value.'); return; }
+
+  /* Update the display immediately */
+  document.getElementById('stat-'+currentStatKey).textContent = val;
+
+  /* Save to Firebase */
+  try {
+    await db.collection('adminStats').doc('stats').set({
+      [currentStatKey]: val,
+      updatedAt: new Date().toISOString()
+    }, { merge: true });
+    console.log('✅ Stat saved to Firebase!');
+  } catch(err){
+    /* Fallback to localStorage */
+    const stats = JSON.parse(localStorage.getItem('ua_admin_stats') || '{}');
+    stats[currentStatKey] = val;
+    localStorage.setItem('ua_admin_stats', JSON.stringify(stats));
+    console.log('Saved to localStorage');
+  }
+
+  closeStatEdit();
+}
+
+async function loadAdminStats(){
+  try {
+    const snap = await db.collection('adminStats').doc('stats').get();
+    if(snap.exists){
+      const stats = snap.data();
+      if(stats.partnerships) document.getElementById('stat-partnerships').textContent = stats.partnerships;
+      if(stats.deliverables)  document.getElementById('stat-deliverables').textContent  = stats.deliverables;
+      if(stats.performance)   document.getElementById('stat-performance').textContent   = stats.performance;
+      if(stats.satisfaction)  document.getElementById('stat-satisfaction').textContent  = stats.satisfaction;
+    }
+  } catch(err){
+    /* Fallback to localStorage */
+    const stats = JSON.parse(localStorage.getItem('ua_admin_stats') || '{}');
+    if(stats.partnerships) document.getElementById('stat-partnerships').textContent = stats.partnerships;
+    if(stats.deliverables)  document.getElementById('stat-deliverables').textContent  = stats.deliverables;
+    if(stats.performance)   document.getElementById('stat-performance').textContent   = stats.performance;
+    if(stats.satisfaction)  document.getElementById('stat-satisfaction').textContent  = stats.satisfaction;
+  }
+}
+
+/* Close popup when clicking outside */
+document.getElementById('statEditPopup').addEventListener('click', function(e){
+  if(e.target === this) closeStatEdit();
+});
+
+/* Enter key to save */
+document.getElementById('statEditInput').addEventListener('keydown', function(e){
+  if(e.key === 'Enter') saveStatEdit();
+});
+
 </script>
+
+<!-- CLIENT DATA MODAL -->
+<div class="cdata-modal-overlay" id="cdataModal">
+  <div class="cdata-modal">
+    <div class="cdata-header">
+<div class="cdata-title" id="cdata-modal-title">Add Client <em>Data</em></div>
+      <button class="cdata-close" onclick="closeCdata()">&#x2715;</button>
+    </div>
+    <div class="cdata-body">
+
+     <div id="cd-client-area">
+        <!-- filled dynamically by openCdata() -->
+      </div>
+
+      <div class="cdata-section">Package Info</div>
+      <div class="cdata-row">
+        <div class="cdata-field">
+          <label class="cdata-label">Package Name</label>
+          <input class="cdata-input" id="cd-package" placeholder="e.g. Growth Essentials">
+        </div>
+        <div class="cdata-field">
+          <label class="cdata-label">Package Price</label>
+          <input class="cdata-input" id="cd-price" placeholder="e.g. Rs 8,000">
+        </div>
+      </div>
+      <div class="cdata-field">
+        <label class="cdata-label">Package Description</label>
+        <input class="cdata-input" id="cd-desc" placeholder="e.g. Social media management · 3 posts/week">
+      </div>
+      <div class="cdata-row">
+        <div class="cdata-field">
+          <label class="cdata-label">Billing Cycle</label>
+          <input class="cdata-input" id="cd-billing" placeholder="e.g. Monthly">
+        </div>
+        <div class="cdata-field">
+          <label class="cdata-label">Renewal Date</label>
+          <input class="cdata-input" id="cd-renewal" placeholder="e.g. Jun 1">
+        </div>
+      </div>
+
+      <div class="cdata-section">Balance</div>
+      <div class="cdata-row">
+        <div class="cdata-field">
+          <label class="cdata-label">Total Amount</label>
+          <input class="cdata-input" id="cd-total" placeholder="e.g. 8000">
+        </div>
+        <div class="cdata-field">
+          <label class="cdata-label">Balance Remaining</label>
+          <input class="cdata-input" id="cd-balance" placeholder="e.g. 3200">
+        </div>
+      </div>
+
+      <div class="cdata-section">Reels</div>
+      <div class="cdata-row">
+        <div class="cdata-field">
+          <label class="cdata-label">Reels Uploaded</label>
+          <input class="cdata-input" id="cd-reels-done" type="number" placeholder="e.g. 8" min="0" max="50">
+        </div>
+        <div class="cdata-field">
+          <label class="cdata-label">Total Reels Planned</label>
+          <input class="cdata-input" id="cd-reels-total" type="number" placeholder="e.g. 12" min="0" max="50">
+        </div>
+      </div>
+
+      <div class="cdata-section">Page Progress</div>
+      <div class="cdata-row">
+        <div class="cdata-field">
+          <label class="cdata-label">Current Followers</label>
+          <input class="cdata-input" id="cd-followers" type="number" placeholder="e.g. 4820">
+        </div>
+        <div class="cdata-field">
+          <label class="cdata-label">Follower Goal</label>
+          <input class="cdata-input" id="cd-goal" type="number" placeholder="e.g. 10000">
+        </div>
+      </div>
+      <div class="cdata-field">
+        <label class="cdata-label">Growth This Month</label>
+        <input class="cdata-input" id="cd-growth" placeholder="e.g. +312">
+      </div>
+
+      <div class="cdata-section">Announcement</div>
+      <div class="cdata-field">
+        <label class="cdata-label">Announcement Title</label>
+        <input class="cdata-input" id="cd-ann-title" placeholder="e.g. Summer Campaign Season">
+      </div>
+      <div class="cdata-field">
+        <label class="cdata-label">Announcement Body</label>
+        <input class="cdata-input" id="cd-ann-body" placeholder="e.g. Book your Q3 slots now...">
+      </div>
+
+      <button class="cdata-submit" onclick="saveCdata()">Save &amp; Update Client Dashboard &#8594;</button>
+
+      <div class="cdata-success" id="cdataSuccess">
+        <div class="cdata-success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div style="font-family:var(--serif);font-size:1.1rem;color:var(--white)">Client dashboard <em style="color:var(--teal)">updated!</em></div>
+        <div style="font-size:.78rem;color:rgba(255,255,255,.4);margin-top:.3rem">Data saved. Client will see changes on next login.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
